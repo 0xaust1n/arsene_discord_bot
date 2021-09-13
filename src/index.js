@@ -20,7 +20,7 @@ client.once('ready', () => {
 });
 
 //listener on message sended
-client.on('message', (msg) => {
+client.on('messageCreate', (msg) => {
   if (!msg.content.startsWith(prefix) || msg.author.bot) {
     return; //escape the function
   }
