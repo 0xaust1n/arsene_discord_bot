@@ -1,3 +1,7 @@
-module.exports = () => {
-  console.log('BOT IS ONLINE');
+module.exports = {
+  name: 'ready',
+  once: true,
+  execute(client) {
+    console.log(`Logged in as ${client.user.username}!`);
+  },
 };
