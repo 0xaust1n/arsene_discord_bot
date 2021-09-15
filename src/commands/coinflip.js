@@ -1,8 +1,9 @@
 const { MessageEmbed } = require('discord.js');
 
-const coinflip = {
+module.exports = {
   name: 'coinflip',
   description: 'this is a coinflip command!',
+  aliases: ['cf'],
   execute(msg, args) {
     if (args.length < 1) {
       msg.channel.send(`擲硬幣指令錯誤! \n範例: \`coinflip tails\``);
@@ -43,5 +44,3 @@ const coinflip = {
 const getRandomInt = (max) => {
   return Math.floor(Math.random() * max);
 };
-
-module.exports = coinflip;
