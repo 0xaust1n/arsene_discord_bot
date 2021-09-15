@@ -1,4 +1,4 @@
-const { Client, Intents, Collection, MessageFlags } = require('discord.js');
+const { Client, Intents, Collection } = require('discord.js');
 const myIntents = new Intents(32509);
 const client = new Client({ intents: myIntents });
 const { token } = require('./configs/token.json');
@@ -27,11 +27,9 @@ client.on('messageCreate', (msg) => {
   //seeking command
   const arg = msg.content.slice(prefix.length).split(/ +/);
   const command = arg.shift().toLocaleLowerCase(); //shift first element
-  if (commandList.includes(`${command}`)) {
-    client.commands.get(`${command}`).execute(msg, arg);
-  }
-  if (command == 'cf') {
-    client.commands.get(`coinflip`).execute(msg, arg);
+  const command = client.commands.get(`${cmd}`) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+  if (command) {
+    command.execute(msg, arg, client);
   }
 });
 
