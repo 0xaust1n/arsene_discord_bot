@@ -1,6 +1,6 @@
 const { Client, Intents, Collection } = require('discord.js');
 const { token } = require('./configs/token.json');
-const myIntents = new Intents(32509);
+const myIntents = new Intents(32767);
 const client = new Client({ intents: myIntents });
 //init commands collection from command folder
 client.commands = new Collection();
