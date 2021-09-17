@@ -1,5 +1,5 @@
 const { Permissions } = require('discord.js');
-const prefix = '!';
+const { prefix } = require('../../configs/configs.json');
 
 module.exports = {
   name: 'messageCreate',
