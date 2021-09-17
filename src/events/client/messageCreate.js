@@ -5,6 +5,14 @@ module.exports = {
   name: 'messageCreate',
   once: false,
   execute(msg, client) {
+    //spam dealing
+    if (!msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+      if (msg.content.toLocaleLowerCase().includes('nitro')) {
+        msg.channel.send(`大家 \`${msg.author.username}\` 被盜了, 請大家小心`);
+        msg.member.ban({ day: 1, reason: '帳號被盜' }).then(console.log(`${msg.author.username} 被封鎖`));
+        return msg.delete();
+      }
+    }
     if (!msg.content.startsWith(prefix) || msg.author.bot) {
       return; //escape the function
     }
