@@ -1,7 +1,8 @@
 module.exports = {
   name: 'ping',
   description: 'this is a ping command!',
-  execute(msg) {
-    msg.channel.send(`Pong! Mother Fucker`);
+  execute(msg, args, client) {
+    const emoji = client.emojis.cache.get('738680578974548038');
+    msg.channel.send(`Pong! Mother Fucker ${emoji}`);
   },
 };
