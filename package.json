@@ -4,8 +4,7 @@
   "license": "MIT",
   "version": "0.0.1",
   "scripts": {
-    "dev": "node src/index.js",
-    "dev:h": "node src/app.js"
+    "dev": "node src/app.js"
   },
   "dependencies": {
     "@discordjs/rest": "^0.1.0-canary.0",
