@@ -9,7 +9,7 @@ module.exports = {
       if (isNaN(args[0])) {
         return msg.reply(`參數只支援數字 你再瞎雞巴輸入我就幹你 ${emoji}`);
       }
-      if (args[0] > 99 || args[0] == 0) {
+      if (args[0] > 100 || args[0] == 0) {
         return msg.reply('請確認數字範圍在 `1` ~ `100` 之間 ');
       }
     }
