@@ -28,3 +28,4 @@ lerna-debug.log*
 
 #custom ignore
 token.json
+serviceAccountKey.json
