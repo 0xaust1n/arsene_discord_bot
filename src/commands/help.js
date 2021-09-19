@@ -14,7 +14,13 @@ module.exports = {
 
     const generalCommand = () => {
       return `
-      \`help\` , \`coinflip\` , \`ping\`
+      \`help\` , \`ping\`
+      `;
+    };
+
+    const gambleCommand = () => {
+      return `
+      \`chips\` , \`spin\` , \`coinflip\` 
       `;
     };
     const resultEmbed = new MessageEmbed()
@@ -24,6 +30,7 @@ module.exports = {
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
       .addField('一般指令:', generalCommand())
       .addField('管理員指令:', adminCommands())
+      .addField('賭博指令:', gambleCommand())
       .setTimestamp();
 
     msg.channel.send({ embeds: [resultEmbed] });
