@@ -5,7 +5,6 @@ module.exports = {
   name: 'help',
   description: 'this is a help command!',
   execute(msg, args, client) {
-    const emoji = client.emojis.cache.get('738680578974548038');
     const adminCommands = () => {
       return `
       \`clear\`
@@ -20,7 +19,7 @@ module.exports = {
 
     const gambleCommand = () => {
       return `
-      \`chips\` , \`spin\` , \`coinflip\` 
+      \`chips\` , \`jackpot\` , \`coinflip\` 
       `;
     };
     const resultEmbed = new MessageEmbed()

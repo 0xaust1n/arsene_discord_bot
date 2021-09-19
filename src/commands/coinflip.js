@@ -6,7 +6,7 @@ module.exports = {
   aliases: ['cf'],
   async execute(msg, args, client) {
     const leverageUtil = require('../utility/leverage');
-    const emoji = client.emojis.cache.get('889139393376452668');
+    const emoji = client.emojis.cache.get('889219097752129667');
     if (args.length < 1) {
       msg.channel.send(`擲硬幣指令錯誤! \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
       return;
@@ -63,6 +63,7 @@ module.exports = {
     coinImgMap.set('t', 'https://i.imgur.com/qt6tqBM.png');
     const resultString = () => {
       return (
+        `\u200B\n` +
         `結果為**${flip == 'h' ? '正面' : '反面'}** \n` +
         `你${result ? '贏得了' : '損失了'} ${Math.abs(gaining)} ${emoji} \n` +
         `現在籌碼數量為${total} ${emoji} \n`

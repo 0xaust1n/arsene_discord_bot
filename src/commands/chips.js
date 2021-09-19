@@ -6,7 +6,7 @@ module.exports = {
   aliases: ['cp'],
   async execute(msg, args, client) {
     const leverageUtil = require('../utility/leverage');
-    const emoji = client.emojis.cache.get('889139393376452668');
+    const emoji = client.emojis.cache.get('889219097752129667');
     const total = await leverageUtil.get(msg);
     const resultString = () => {
       return `
@@ -17,7 +17,7 @@ module.exports = {
       .setColor('#0099ff')
       .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }))
       .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
-      .addField('籌碼數量為', resultString())
+      .addField('籌碼數量', resultString())
       .setTimestamp();
     msg.channel.send({ embeds: [resultEmbed] });
   },

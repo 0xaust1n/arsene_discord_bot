@@ -1,11 +1,11 @@
 module.exports = {
-  name: 'spin',
+  name: 'jackpot',
   description: 'this is a spin command!',
-  aliases: ['sp'],
+  aliases: ['jp'],
   async execute(msg, args, client) {
     const cd = require('../utility/cool_down');
     const leverage = require('../utility/leverage');
-    const emoji = client.emojis.cache.get('889139393376452668');
+    const emoji = client.emojis.cache.get('889219097752129667');
     cd.get(msg, this.name).then((result) => {
       if (result == 'READY') {
         const prize = getRandomInt(50);
