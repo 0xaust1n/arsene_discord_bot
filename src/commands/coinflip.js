@@ -20,7 +20,10 @@ module.exports = {
     let leverage = 0;
     const currentLeverage = await leverageUtil.get(msg);
     const acceptAmountArgs = ['a', 'all'];
-
+    if (!args.length) {
+      msg.channel.send(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      return;
+    }
     if (isNaN(args[0]) && !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)) {
       msg.channel.send(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
       return;
