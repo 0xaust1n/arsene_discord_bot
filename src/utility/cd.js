@@ -2,12 +2,19 @@ const dayjs = require('dayjs');
 const admin = require('firebase-admin');
 const db = admin.database();
 const ref = db.ref(`/leverage`);
+
 module.exports = {
-  name: 'cold_down ',
-  description: 'utility for function cold down',
+  name: 'cd',
+  description: 'utility for function cd',
   get: async (msg, key) => {
     const dbResult = await ref.child(msg.author.id).once('value');
     const temp = dbResult.val();
+    if (temp == null) {
+      return 'READY';
+    }
+    if (temp[key] == undefined) {
+      return 'READY';
+    }
     if (temp[key] != undefined) {
       const cd = new Date(temp[key]);
       const now = new Date();
@@ -23,9 +30,6 @@ module.exports = {
       distance -= rMin * 60000;
       const rSec = Math.floor(distance / 1000);
       return `${rDay > 0 ? `${rDay}天` : ''}${rHour > 0 ? `${rHour}小時` : ''}${rMin > 0 ? `${rMin}分` : ''}${rSec}秒`;
-    }
-    if (temp[key] == undefined || temp[key] == 'Ready') {
-      return 'READY';
     }
   },
   set: (msg, key, type, amount) => {

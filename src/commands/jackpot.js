@@ -1,9 +1,9 @@
 module.exports = {
   name: 'jackpot',
-  description: 'this is a spin command!',
+  description: 'this is a jackpot command!',
   aliases: ['jp'],
   async execute(msg, args, client) {
-    const cd = require('../utility/cool_down');
+    const cd = require('../utility/cd');
     const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     cd.get(msg, this.name).then((result) => {
