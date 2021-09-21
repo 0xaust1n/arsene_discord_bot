@@ -19,7 +19,7 @@ module.exports = {
 
     const gambleCommand = () => {
       return `
-      \`chips\` , \`jackpot\` , \`claimall\` , \`reward\`  , \`coinflip\` 
+      \`level\` , \`chips\` , \`jackpot\` , \`claimall\` \n \`reward\`  , \`coinflip\` 
       `;
     };
     const resultEmbed = new MessageEmbed()
