@@ -13,6 +13,7 @@ module.exports = {
       const leverage = require('../utility/leverage');
       const emoji = client.emojis.cache.get('889219097752129667');
       const obj = argsMap.get(arg);
+      const currentLeverage = await leverageUtil.get(msg);
       cd.get(msg, obj.name).then((result) => {
         if (result == 'READY') {
           const prize = obj.prize;

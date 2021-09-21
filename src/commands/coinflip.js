@@ -5,7 +5,7 @@ module.exports = {
   description: 'this is a coinflip command!',
   aliases: ['cf'],
   async execute(msg, args, client) {
-    const leverageUtil = require('../utility/leverage');
+    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     if (args.length < 1) {
       msg.channel.send(`擲硬幣指令錯誤! \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
@@ -17,8 +17,8 @@ module.exports = {
       msg.channel.send(`擲硬幣參數錯誤! \n` + `範例: \`coinflip tails\`\n` + `請重新輸入`);
       return;
     }
-    let leverage = 0;
-    const currentLeverage = await leverageUtil.get(msg);
+    let inputLeverage = 0;
+    const currentLeverage = await leverage.get(msg);
     const acceptAmountArgs = ['a', 'all'];
     if (!args.length) {
       msg.channel.send(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
@@ -40,12 +40,12 @@ module.exports = {
     }
 
     if (acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)) {
-      leverage = currentLeverage;
+      inputLeverage = currentLeverage;
     } else {
-      leverage = Math.floor(parseInt(args.shift()));
+      inputLeverage = Math.floor(parseInt(args.shift()));
     }
 
-    const isEnough = currentLeverage >= leverage ? true : false;
+    const isEnough = currentLeverage >= inputLeverage ? true : false;
     if (!isEnough) {
       msg.channel.send(
         `籌碼數量錯誤! 沒有足夠的籌碼 \n` +
@@ -59,9 +59,9 @@ module.exports = {
     //random flip result
     const flip = acceptArgs[getRandomInt(4)].substring(0, 1);
     const result = input == flip ? true : false;
-    const gaining = result == true ? leverage : -leverage;
+    const gaining = result == true ? inputLeverage : -inputLeverage;
     const coinImgMap = new Map();
-    const total = await leverageUtil.add(msg, gaining);
+    const total = await leverage.add(msg, gaining);
     coinImgMap.set('h', 'https://i.imgur.com/aO5MiC8.png');
     coinImgMap.set('t', 'https://i.imgur.com/qt6tqBM.png');
     const resultString = () => {
@@ -72,6 +72,11 @@ module.exports = {
         `現在籌碼數量為${total} ${emoji} \n`
       );
     };
+    //gain exp
+
+    const xp = require('../utility/xp');
+    xp.add(msg, inputLeverage);
+
     // prettier-ignore
     const resultEmbed = new MessageEmbed()
       .setColor('#0099ff')

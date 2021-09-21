@@ -6,6 +6,7 @@ module.exports = {
     const cd = require('../utility/cd');
     const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
+    const currentLeverage = await leverage.get(msg);
     cd.get(msg, this.name).then((result) => {
       if (result == 'READY') {
         const prize = getRandomInt(50);

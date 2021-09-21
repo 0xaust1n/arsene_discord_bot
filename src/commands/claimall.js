@@ -8,6 +8,9 @@ module.exports = {
       { name: 'daily', prize: 2400, type: 'd', cd: '1' },
       { name: 'weekly', prize: 5000, type: 'd', cd: '7' },
     ];
+    const leverage = require('../utility/leverage');
+    const currentLeverage = await leverage.get(msg);
+
     const cd = require('../utility/cd');
     let sum = 0;
     for (let i = 0; i < rewardArray.length; i++) {
@@ -18,7 +21,7 @@ module.exports = {
         cd.set(msg, obj.name, obj.type, obj.cd);
       }
     }
-    const leverage = require('../utility/leverage');
+
     const emoji = client.emojis.cache.get('889219097752129667');
     if (sum > 0) {
       leverage.add(msg, sum);
