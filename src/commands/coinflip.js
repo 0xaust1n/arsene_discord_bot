@@ -57,7 +57,7 @@ module.exports = {
     }
 
     //random flip result
-    const flip = acceptArgs[getRandomInt(4)].substring(0, 1);
+    const flip = getRandomInt(2) === 1 ? 'h' : 't';
     const result = input == flip ? true : false;
     const gaining = result == true ? inputLeverage : -inputLeverage;
     const coinImgMap = new Map();
@@ -90,5 +90,5 @@ module.exports = {
 };
 
 const getRandomInt = (max) => {
-  return Math.floor(Math.random() * max);
+  return Math.floor(Math.random() * max + 1);
 };
