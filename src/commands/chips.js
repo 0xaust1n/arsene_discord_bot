@@ -13,12 +13,24 @@ module.exports = {
       **${total}** ${emoji}
       `;
     };
-    const resultEmbed = new MessageEmbed()
-      .setColor('#0099ff')
-      .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }))
-      .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
-      .addField('籌碼數量', resultString())
-      .setTimestamp();
+
+    let resultEmbed;
+    if (msg.mentions.users.first() != undefined) {
+      const metions = msg.mentions.users.first();
+      resultEmbed = new MessageEmbed()
+        .setColor('#0099ff')
+        .setAuthor(metions.username, metions.displayAvatarURL({ dynamic: true }))
+        .setThumbnail(metions.displayAvatarURL({ dynamic: true }))
+        .addField('籌碼數量', resultString())
+        .setTimestamp();
+    } else {
+      resultEmbed = new MessageEmbed()
+        .setColor('#0099ff')
+        .setAuthor(msg.author.username, msg.author.displayAvatarURL({ dynamic: true }))
+        .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
+        .addField('籌碼數量', resultString())
+        .setTimestamp();
+    }
     msg.channel.send({ embeds: [resultEmbed] });
   },
 };

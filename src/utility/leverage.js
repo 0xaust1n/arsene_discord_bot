@@ -19,7 +19,13 @@ module.exports = {
     }
   },
   get: async (msg) => {
-    const dbResult = await ref.child(msg.author.id).once('value');
+    let dbResult;
+    if (msg.mentions.users.first() != undefined) {
+      const metions = msg.mentions.users.first();
+      dbResult = await ref.child(metions.id).once('value');
+    } else {
+      dbResult = await ref.child(msg.author.id).once('value');
+    }
     const temp = dbResult.val();
     if (temp != null) {
       let currentAmount = parseInt(temp.amount);
