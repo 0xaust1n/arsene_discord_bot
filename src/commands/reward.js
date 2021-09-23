@@ -14,7 +14,7 @@ module.exports = {
       const emoji = client.emojis.cache.get('889219097752129667');
       const obj = argsMap.get(arg);
       const currentLeverage = await leverageUtil.get(msg);
-      cd.get(msg, obj.name).then((result) => {
+      cd.check(msg, obj.name).then((result) => {
         if (result == 'READY') {
           const prize = obj.prize;
           leverage.add(msg, prize);
@@ -32,7 +32,7 @@ module.exports = {
 
 const initMap = (map) => {
   map.set('h', { name: 'hourly', prize: 600, type: 'h', cd: '1' });
-  map.set('hour', { name: 'hourly', prize: 600, type: 'h', cd: '1' });
+  map.set('hourly', { name: 'hourly', prize: 600, type: 'h', cd: '1' });
   map.set('d', { name: 'daily', prize: 2400, type: 'd', cd: '1' });
   map.set('daily', { name: 'daily', prize: 2400, type: 'd', cd: '1' });
   map.set('w', { name: 'weekly', prize: 5000, type: 'd', cd: '7' });

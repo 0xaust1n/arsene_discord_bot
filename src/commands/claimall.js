@@ -15,7 +15,7 @@ module.exports = {
     let sum = 0;
     for (let i = 0; i < rewardArray.length; i++) {
       const obj = rewardArray[i];
-      const result = await cd.get(msg, obj.name);
+      const result = await cd.check(msg, obj.name);
       if (result == 'READY') {
         sum += obj.prize;
         cd.set(msg, obj.name, obj.type, obj.cd);
