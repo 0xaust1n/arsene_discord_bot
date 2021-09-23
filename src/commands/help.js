@@ -19,12 +19,16 @@ module.exports = {
 
     const gambleCommand = () => {
       return `
-      \`level\` , \`chips\` , \`jackpot\` , \`claimall\` \n\`cooldown\` \`reward\`  , \`coinflip\` 
+      \`level\` , \`chips\` , \`jackpot\` , \`claimall\` \n\`cooldown\` , \`reward\`  , \`coinflip\` 
       `;
     };
     const resultEmbed = new MessageEmbed()
       .setColor('#0099ff')
-      .setAuthor(client.user.username, client.user.displayAvatarURL({ dynamic: true }))
+      .setAuthor(
+        '→詳細指令解釋點我',
+        client.user.displayAvatarURL({ dynamic: true }),
+        'https://github.com/austinbabe/arsene_discord_bot/blob/master/command_cht.md'
+      )
       .setDescription(`目前指令前綴為: \`${prefix}\``)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
       .addField('一般指令:', generalCommand())
