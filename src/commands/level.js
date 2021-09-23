@@ -3,7 +3,7 @@ const { MessageEmbed } = require('discord.js');
 module.exports = {
   name: 'level',
   description: 'this is a level command!',
-  aliases: ['lv'],
+  aliases: ['lv','rank','rk'],
   async execute(msg, args, client) {
     const level = require('../utility/level');
     const xp = require('../utility/xp');
