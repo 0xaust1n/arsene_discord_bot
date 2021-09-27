@@ -7,18 +7,19 @@ module.exports = {
   async execute(msg, args, client) {
     const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
-    const total = await leverage.get(msg);
-    const resultString = () => {
-      return `
-      **${total}** ${emoji}
-      `;
-    };
     let user;
     if (msg.mentions.users.first() != undefined) {
       user = msg.mentions.users.first();
     } else {
       user = msg.author;
     }
+
+    const total = await leverage.get(user);
+    const resultString = () => {
+      return `
+      **${total}** ${emoji}
+      `;
+    };
 
     const resultEmbed = new MessageEmbed()
       .setColor('#0099ff')
