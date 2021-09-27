@@ -35,13 +35,7 @@ module.exports = {
     });
     return msg.channel.send(`恭喜 \`${msg.author.username}\`  賭博等級升級為 \`${nextLevel}\``);
   },
-  get: async (msg) => {
-    let user;
-    if (msg.mentions.users.first() != undefined) {
-      user = msg.mentions.users.first();
-    } else {
-      user = msg.author;
-    }
+  get: async (user) => {
     dbResult = await ref.child(user.id).once('value');
     const temp = dbResult.val();
     return temp.level;
