@@ -27,20 +27,23 @@ module.exports = {
   },
   get: async (msg) => {
     let dbResult;
+    let user;
     if (msg.mentions.users.first() != undefined) {
-      const metions = msg.mentions.users.first();
-      dbResult = await ref.child(metions.id).once('value');
+      user = msg.mentions.users.first();
     } else {
-      dbResult = await ref.child(msg.author.id).once('value');
+      user = msg.author;
     }
+    dbResult = await ref.child(user.id).once('value');
     const temp = dbResult.val();
     if (temp != null && temp.xp != undefined) {
       let currentXP = parseInt(temp.xp);
       return currentXP;
     } else {
-      ref.child(`${msg.author.id}`).set({
-        name: `${msg.author.username}`,
-        xp: `${0}`,
+      ref.child(`${user.id}`).set({
+        name: `${user.username}`,
+        amount: `${50}`,
+        xp: 0,
+        level: `Fish`,
       });
       return 0;
     }
