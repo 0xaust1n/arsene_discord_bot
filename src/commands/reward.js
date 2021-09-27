@@ -13,13 +13,14 @@ module.exports = {
       const leverage = require('../utility/leverage');
       const emoji = client.emojis.cache.get('889219097752129667');
       const obj = argsMap.get(arg);
-      const currentLeverage = await leverageUtil.get(msg);
+      const user = msg.author;
+      const currentLeverage = await leverage.get(user);
       cd.check(msg, obj.name).then((result) => {
         if (result == 'READY') {
           const prize = obj.prize;
-          leverage.add(msg, prize);
+          leverage.add(user, prize);
           cd.set(msg, obj.name, obj.type, obj.cd);
-          return msg.channel.send(`恭喜你獲得 ${prize} ${emoji}`);
+          return msg.channel.send(`恭喜\`${user.username}\`獲得 ${prize} ${emoji}`);
         } else {
           return msg.channel.send(`指令冷卻中 剩餘時間:**${result}**`);
         }
