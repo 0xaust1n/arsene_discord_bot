@@ -25,15 +25,8 @@ module.exports = {
       }
     }
   },
-  get: async (msg) => {
-    let dbResult;
-    let user;
-    if (msg.mentions.users.first() != undefined) {
-      user = msg.mentions.users.first();
-    } else {
-      user = msg.author;
-    }
-    dbResult = await ref.child(user.id).once('value');
+  get: async (user) => {
+    const dbResult = await ref.child(user.id).once('value');
     const temp = dbResult.val();
     if (temp != null && temp.xp != undefined) {
       let currentXP = parseInt(temp.xp);
