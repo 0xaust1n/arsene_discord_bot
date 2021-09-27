@@ -3,6 +3,7 @@ const { prefix } = require('../configs/configs.json');
 
 module.exports = {
   name: 'help',
+  aliases: ['?', 'h'],
   description: 'this is a help command!',
   execute(msg, args, client) {
     const adminCommands = () => {
@@ -18,9 +19,10 @@ module.exports = {
     };
 
     const gambleCommand = () => {
-      return `
-      \`level\` , \`chips\` , \`jackpot\` , \`claimall\` \n\`cooldown\` , \`reward\`  , \`coinflip\` 
-      `;
+      return (
+        `\`level\` , \`chips\` , \`jackpot\` , \`claimall\` \n` +
+        `\`cooldown\` , \`reward\`  , \`coinflip\` , \`beg\`\n`
+      );
     };
     const resultEmbed = new MessageEmbed()
       .setColor('#0099ff')
