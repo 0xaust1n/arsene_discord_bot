@@ -9,7 +9,8 @@ module.exports = {
       { name: 'weekly', prize: 5000, type: 'd', cd: '7' },
     ];
     const leverage = require('../utility/leverage');
-    const currentLeverage = await leverage.get(msg);
+    const user = msg.author;
+    const currentLeverage = await leverage.get(user);
 
     const cd = require('../utility/cd');
     let sum = 0;
@@ -24,7 +25,7 @@ module.exports = {
 
     const emoji = client.emojis.cache.get('889219097752129667');
     if (sum > 0) {
-      leverage.add(msg, sum);
+      leverage.add(user, sum);
       return msg.channel.send(`恭喜你獲得 ${sum} ${emoji}`);
     } else {
       msg.channel.send(`指令全部都在冷卻中`);
