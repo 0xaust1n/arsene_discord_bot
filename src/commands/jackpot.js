@@ -6,17 +6,18 @@ module.exports = {
     const cd = require('../utility/cd');
     const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
-    const currentLeverage = await leverage.get(msg);
+    const user = msg.author;
+    const currentLeverage = await leverage.get(user);
     cd.check(msg, this.name).then((result) => {
       if (result == 'READY') {
         const max = 500;
         const prize = getRandomInt(max);
 
         if (prize != max) {
-          leverage.add(msg, prize);
+          leverage.add(user, prize);
           msg.channel.send(`恭喜你獲得 ${prize} ${emoji}`);
         } else {
-          leverage.add(msg, prize * 1000);
+          leverage.add(user, prize * 1000);
           msg.channel.send(`恭喜你獲得大獎 ${prize * 1000}  ${emoji} ${emoji} ${emoji} ${emoji} ${emoji}`);
         }
 
