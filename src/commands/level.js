@@ -20,7 +20,9 @@ module.exports = {
     const nextXp = level.getNextLevelXp(currentXp);
     let sectionOne = `\`等級\`: ${currentLevel}\n`;
     sectionOne += `\`經驗值\`: ${currentXp}\n`;
-    sectionOne += `\`距離升級\`: ${parseInt(nextXp) - parseInt(currentXp)}\n`;
+    if (parseInt(currentXp) < 1000000) {
+      sectionOne += `\`距離升級\`: ${parseInt(nextXp) - parseInt(currentXp)}\n`;
+    }
     const resultEmbed = new MessageEmbed()
       .setColor('#0099ff')
       .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
