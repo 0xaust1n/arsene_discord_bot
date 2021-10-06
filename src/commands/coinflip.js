@@ -64,7 +64,7 @@ module.exports = {
     const coinImgMap = new Map();
     const total = await leverage.add(user, gaining);
     coinImgMap.set('h', 'https://i.imgur.com/aO5MiC8.png');
-    coinImgMap.set('t', 'https://i.imgur.com/qt6tqBM.png');
+    coinImgMap.set('t', 'https://i.imgur.com/I14nyiH.png');
     const resultString = () => {
       return (
         `\u200B\n` +
