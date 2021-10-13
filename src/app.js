@@ -16,6 +16,9 @@ const serviceAccount = require('./configs/serviceAccountKey.json');
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: 'https://sodium-burner-326201-default-rtdb.asia-southeast1.firebasedatabase.app',
+  databaseAuthVariableOverride: {
+    uid: 'arsene_discord_bot',
+  },
 });
 
 const { token } = require('./configs/token.json');
