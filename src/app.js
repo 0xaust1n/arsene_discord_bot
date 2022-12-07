@@ -1,12 +1,20 @@
-const { Client, Intents, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const admin = require('firebase-admin');
-const myIntents = new Intents(32767);
-const client = new Client({ intents: myIntents });
+require('dotenv').config();
+
+const client = new Client({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+  ],
+});
 //init commands collection from command folder
 client.commands = new Collection();
 client.events = new Collection();
 //init handler
-const handlerAry = ['command_handler', 'event_handler'];
+const handlerAry = ['command_handler', 'event_handler', 'slash_handler'];
 handlerAry.forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
@@ -21,5 +29,5 @@ admin.initializeApp({
   },
 });
 
-const { token } = require('./configs/token.json');
+const token = process.env.TOKEN;
 client.login(token);
