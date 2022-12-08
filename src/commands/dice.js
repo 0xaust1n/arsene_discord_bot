@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'dice',
@@ -12,12 +12,17 @@ module.exports = {
       msg.channel.send(`擲骰子指令錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
+    const tempGuessing = args.shift().toLocaleLowerCase();
     const acceptArgs = ['odd', 'o', 'even', 'e', '1', '2', '3', '4', '5', '6'];
-    const input = args.shift().toLocaleLowerCase().substring(0, 1);
-    if (!acceptArgs.includes(input)) {
+    if (parseInt(tempGuessing) > 6) {
+      msg.channel.send(`擲骰子參數錯誤 我們的骰子只有6點喲! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      return;
+    }
+    if (!acceptArgs.includes(tempGuessing)) {
       msg.channel.send(`擲骰子參數錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
+    const input = tempGuessing.substring(0, 1);
     let inputLeverage = 0;
     const currentLeverage = await leverage.get(user);
     const acceptAmountArgs = ['a', 'all'];
@@ -71,10 +76,10 @@ module.exports = {
         gaining = -inputLeverage;
       }
     } else {
-      if (input.indexOf('o') > -1 && isEven == true) {
+      if (input.indexOf('e') > -1 && isEven == true) {
         result = true;
         gaining = inputLeverage;
-      } else if (input.indexOf('e') > -1 && isEven == false) {
+      } else if (input.indexOf('o') > -1 && isEven == false) {
         result = true;
         gaining = inputLeverage;
       } else {
@@ -103,11 +108,11 @@ module.exports = {
     xp.add(msg, inputLeverage);
 
     // prettier-ignore
-    const resultEmbed = new MessageEmbed()
+    const resultEmbed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
+      .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
       .setThumbnail(diceImgMap.get(dice))
-      .addField('Dice', resultString())
+      .addFields({ name: 'Dice', value: resultString() })
       .setTimestamp();
 
     msg.channel.send({ embeds: [resultEmbed] });
