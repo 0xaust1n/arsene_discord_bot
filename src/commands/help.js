@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 const { prefix } = require('../configs/configs.json');
 
 module.exports = {
@@ -24,18 +24,20 @@ module.exports = {
         `\`cooldown\` , \`reward\`  , \`coinflip\` , \`beg\`\n`
       );
     };
-    const resultEmbed = new MessageEmbed()
+    const resultEmbed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setAuthor(
-        '→詳細指令解釋點我',
-        client.user.displayAvatarURL({ dynamic: true }),
-        'https://github.com/austinbabe/arsene_discord_bot/blob/master/command_cht.md'
-      )
+      .setAuthor({
+        name: '→詳細指令解釋點我',
+        iconURL: client.user.displayAvatarURL({ dynamic: true }),
+        url: 'https://github.com/austinbabe/arsene_discord_bot/blob/master/command_cht.md',
+      })
       .setDescription(`目前指令前綴為: \`${prefix}\``)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
-      .addField('一般指令:', generalCommand())
-      .addField('管理員指令:', adminCommands())
-      .addField('賭博指令:', gambleCommand())
+      .addFields(
+        { name: '一般指令:', value: generalCommand() },
+        { name: '管理員指令:', value: adminCommands() },
+        { name: '賭博指令:', value: gambleCommand() }
+      )
       .setTimestamp();
 
     msg.channel.send({ embeds: [resultEmbed] });
