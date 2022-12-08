@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'chips',
@@ -21,11 +21,11 @@ module.exports = {
       `;
     };
 
-    const resultEmbed = new MessageEmbed()
-      .setColor('#0099ff')
-      .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
+    const resultEmbed = new EmbedBuilder()
+      .setColor(0x0099ff)
+      .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-      .addField('籌碼數量', resultString())
+      .addFields({ name: '籌碼數量', value: resultString() })
       .setTimestamp();
 
     msg.channel.send({ embeds: [resultEmbed] });
