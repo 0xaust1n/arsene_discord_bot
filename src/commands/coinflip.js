@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'coinflip',
@@ -79,11 +79,11 @@ module.exports = {
     xp.add(msg, inputLeverage);
 
     // prettier-ignore
-    const resultEmbed = new MessageEmbed()
+    const resultEmbed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
+      .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
       .setThumbnail(coinImgMap.get(flip))
-      .addField('Coinflip', resultString())
+      .addFields({ name: 'Coinflip', value: resultString() })
       .setTimestamp();
 
     msg.channel.send({ embeds: [resultEmbed] });
