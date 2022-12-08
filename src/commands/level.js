@@ -1,4 +1,4 @@
-const { MessageEmbed } = require('discord.js');
+const { EmbedBuilder } = require('discord.js');
 
 module.exports = {
   name: 'level',
@@ -23,11 +23,11 @@ module.exports = {
     if (parseInt(currentXp) < 1000000) {
       sectionOne += `\`距離升級\`: ${parseInt(nextXp) - parseInt(currentXp)}\n`;
     }
-    const resultEmbed = new MessageEmbed()
+    const resultEmbed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setAuthor(user.username, user.displayAvatarURL({ dynamic: true }))
+      .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
       .setThumbnail(user.displayAvatarURL({ dynamic: true }))
-      .addField('Level', sectionOne)
+      .addFields({ name: 'Level', value: sectionOne })
       .setTimestamp();
 
     msg.channel.send({ embeds: [resultEmbed] });
