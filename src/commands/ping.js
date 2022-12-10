@@ -3,6 +3,6 @@ module.exports = {
   description: 'this is a ping command!',
   execute(msg, args, client) {
     const emoji = client.emojis.cache.get('738680578974548038');
-    msg.channel.send(`Pong! Mother Fucker ${emoji}`);
+    msg.reply(`Pong! Mother Fucker ${emoji}`);
   },
 };

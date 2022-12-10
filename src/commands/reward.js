@@ -4,7 +4,7 @@ module.exports = {
   aliases: ['rw'],
   async execute(msg, args, client) {
     if (!args.length) {
-      return msg.channel.send(`Reward指令參數錯誤! 參數不能為空白`);
+      return msg.reply(`Reward指令參數錯誤! 參數不能為空白`);
     }
     const argsMap = initMap(new Map());
     const arg = args.shift().toLocaleLowerCase();
@@ -14,19 +14,20 @@ module.exports = {
       const emoji = client.emojis.cache.get('889219097752129667');
       const obj = argsMap.get(arg);
       const user = msg.author;
-      const currentLeverage = await leverage.get(user);
+      // init user amount
+      await leverage.get(user);
       cd.check(msg, obj.name).then((result) => {
         if (result == 'READY') {
           const prize = obj.prize;
           leverage.add(user, prize);
           cd.set(msg, obj.name, obj.type, obj.cd);
-          return msg.channel.send(`恭喜\`${user.username}\`獲得 ${prize} ${emoji}`);
+          return msg.reply(`恭喜\`${user.username}\`獲得 ${prize} ${emoji}`);
         } else {
-          return msg.channel.send(`指令冷卻中 剩餘時間:**${result}**`);
+          return msg.reply(`指令冷卻中 剩餘時間:**${result}**`);
         }
       });
     } else {
-      return msg.channel.send(`Reward指令參數錯誤! 接受參數為: \`hourly\` , \`daily\` , \`weekly\``);
+      return msg.reply(`Reward指令參數錯誤! 接受參數為: \`hourly\` , \`daily\` , \`weekly\``);
     }
   },
 };

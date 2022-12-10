@@ -9,17 +9,17 @@ module.exports = {
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
     if (args.length < 1) {
-      msg.channel.send(`擲骰子指令錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(`擲骰子指令錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
     const tempGuessing = args.shift().toLocaleLowerCase();
     const acceptArgs = ['odd', 'o', 'even', 'e', '1', '2', '3', '4', '5', '6'];
     if (parseInt(tempGuessing) > 6) {
-      msg.channel.send(`擲骰子參數錯誤 我們的骰子只有6點喲! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(`擲骰子參數錯誤 我們的骰子只有6點喲! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
     if (!acceptArgs.includes(tempGuessing)) {
-      msg.channel.send(`擲骰子參數錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(`擲骰子參數錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
     const input = tempGuessing.substring(0, 1);
@@ -27,21 +27,21 @@ module.exports = {
     const currentLeverage = await leverage.get(user);
     const acceptAmountArgs = ['a', 'all'];
     if (!args.length) {
-      msg.channel.send(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
     if (isNaN(args[0]) && !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)) {
-      msg.channel.send(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
 
     if (parseInt(args[0]) <= 0) {
-      msg.channel.send(`籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
       return;
     }
 
     if (currentLeverage == 0) {
-      msg.channel.send(`籌碼數量錯誤! 籌碼為 0 \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量錯誤! 籌碼為 0 \n` + `賭癮就先緩緩吧少年~`);
       return;
     }
 
@@ -53,7 +53,7 @@ module.exports = {
 
     const isEnough = currentLeverage >= inputLeverage ? true : false;
     if (!isEnough) {
-      msg.channel.send(
+      msg.reply(
         `籌碼數量錯誤! 沒有足夠的籌碼 \n` +
           `目前籌碼數量為 ${currentLeverage} ${emoji}\n` +
           `範例: \`coinflip tails 50\`` +
@@ -71,7 +71,7 @@ module.exports = {
       const number = parseInt(input);
       if (number == dice) {
         result = true;
-        gaining = inputLeverage * 6;
+        gaining = inputLeverage * 10;
       } else {
         gaining = -inputLeverage;
       }
@@ -115,7 +115,7 @@ module.exports = {
       .addFields({ name: 'Dice', value: resultString() })
       .setTimestamp();
 
-    msg.channel.send({ embeds: [resultEmbed] });
+    msg.reply({ embeds: [resultEmbed] });
   },
 };
 

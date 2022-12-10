@@ -28,6 +28,6 @@ module.exports = {
       .addFields({ name: '籌碼數量', value: resultString() })
       .setTimestamp();
 
-    msg.channel.send({ embeds: [resultEmbed] });
+    msg.reply({ embeds: [resultEmbed] });
   },
 };

@@ -23,6 +23,6 @@ module.exports = {
       .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
       .addFields({ name: '冷卻時間', value: resultString })
       .setTimestamp();
-    msg.channel.send({ embeds: [resultEmbed] });
+    msg.reply({ embeds: [resultEmbed] });
   },
 };

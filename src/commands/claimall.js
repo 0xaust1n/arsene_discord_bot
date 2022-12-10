@@ -10,7 +10,8 @@ module.exports = {
     ];
     const leverage = require('../utility/leverage');
     const user = msg.author;
-    const currentLeverage = await leverage.get(user);
+    // init user amount
+    await leverage.get(user);
 
     const cd = require('../utility/cd');
     let sum = 0;
@@ -26,9 +27,9 @@ module.exports = {
     const emoji = client.emojis.cache.get('889219097752129667');
     if (sum > 0) {
       leverage.add(user, sum);
-      return msg.channel.send(`恭喜你獲得 ${sum} ${emoji}`);
+      return msg.reply(`恭喜你獲得 ${sum} ${emoji}`);
     } else {
-      msg.channel.send(`指令全部都在冷卻中`);
+      msg.reply(`指令全部都在冷卻中`);
     }
   },
 };

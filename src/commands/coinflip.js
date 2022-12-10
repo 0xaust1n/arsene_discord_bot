@@ -9,34 +9,35 @@ module.exports = {
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
     if (args.length < 1) {
-      msg.channel.send(`擲硬幣指令錯誤! \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(`擲硬幣指令錯誤! \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
       return;
     }
     const acceptArgs = ['h', 'heads', 't', 'tails'];
     const input = args.shift().toLocaleLowerCase().substring(0, 1);
     if (!acceptArgs.includes(input)) {
-      msg.channel.send(`擲硬幣參數錯誤! \n` + `範例: \`coinflip tails\`\n` + `請重新輸入`);
+      msg.reply(`擲硬幣參數錯誤! \n` + `範例: \`coinflip tails\`\n` + `請重新輸入`);
       return;
     }
     let inputLeverage = 0;
+    // init user amount
     const currentLeverage = await leverage.get(user);
     const acceptAmountArgs = ['a', 'all'];
     if (!args.length) {
-      msg.channel.send(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
       return;
     }
     if (isNaN(args[0]) && !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)) {
-      msg.channel.send(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
       return;
     }
 
     if (parseInt(args[0]) <= 0) {
-      msg.channel.send(`籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
       return;
     }
 
     if (currentLeverage == 0) {
-      msg.channel.send(`籌碼數量錯誤! 籌碼為 0 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(`籌碼數量錯誤! 籌碼為 0 \n` + `賭癮就先緩緩吧少年~`);
       return;
     }
 
@@ -48,7 +49,7 @@ module.exports = {
 
     const isEnough = currentLeverage >= inputLeverage ? true : false;
     if (!isEnough) {
-      msg.channel.send(
+      msg.reply(
         `籌碼數量錯誤! 沒有足夠的籌碼 \n` +
           `目前籌碼數量為 ${currentLeverage} ${emoji}\n` +
           `範例: \`coinflip tails 50\`` +
@@ -86,7 +87,7 @@ module.exports = {
       .addFields({ name: 'Coinflip', value: resultString() })
       .setTimestamp();
 
-    msg.channel.send({ embeds: [resultEmbed] });
+    msg.reply({ embeds: [resultEmbed] });
   },
 };
 
