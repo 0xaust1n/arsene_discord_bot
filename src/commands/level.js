@@ -14,13 +14,14 @@ module.exports = {
     } else {
       user = msg.author;
     }
-    const currentLeverage = await leverage.get(user);
+    // init user amount
+    await leverage.get(user);
     const currentLevel = await level.get(user);
     const currentXp = await xp.get(user);
     const nextXp = level.getNextLevelXp(currentXp);
     let sectionOne = `\`等級\`: ${currentLevel}\n`;
     sectionOne += `\`經驗值\`: ${currentXp}\n`;
-    if (parseInt(currentXp) < 1000000) {
+    if (parseInt(currentXp) < 10000000000000) {
       sectionOne += `\`距離升級\`: ${parseInt(nextXp) - parseInt(currentXp)}\n`;
     }
     const resultEmbed = new EmbedBuilder()
@@ -30,6 +31,6 @@ module.exports = {
       .addFields({ name: 'Level', value: sectionOne })
       .setTimestamp();
 
-    msg.channel.send({ embeds: [resultEmbed] });
+    msg.reply({ embeds: [resultEmbed] });
   },
 };

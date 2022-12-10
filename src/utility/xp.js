@@ -19,7 +19,7 @@ module.exports = {
         name: `${msg.author.username}`,
         xp: currentXp,
       });
-      const checkLevel = level.checkLevel(temp.xp, currentXp);
+      const checkLevel = level.checkLevel(temp.level, currentXp);
       if (checkLevel.isLevelUp) {
         level.levelUp(msg, checkLevel.level);
       }

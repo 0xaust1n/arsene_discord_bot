@@ -5,28 +5,32 @@ const ref = db.ref(`/leverage`);
 module.exports = {
   name: 'level',
   description: 'utility for function level',
-  checkLevel: (bExp, AExp) => {
-    const levelAry = [1000, 10000, 100000, 500000, 1000000];
+  checkLevel: (level, currentXp) => {
+    const levelAry = [1000, 10000, 100000, 10000000, 50000000000, 10000000000000];
+    const titleAry = ['Newbie', 'Gambler', 'Senior Gambler', 'Legend Gambler', 'Hand Of Fate'];
     const temp = {};
-    for (const val of levelAry) {
-      if (bExp < val && AExp >= val) {
-        temp.isLevelUp = true;
+    for (const [index, val] of levelAry.entries()) {
+      if (currentXp >= val) {
         temp.level = val;
-        break;
-      } else {
+        temp.title = titleAry[index];
         continue;
+      } else {
+        break;
       }
+    }
+    if (level != temp.title) {
+      temp.isLevelUp = true;
     }
     return temp;
   },
   levelUp: async (msg, level) => {
     const levelObject = {
       0: 'Fish',
-      1000: 'Newbie',
-      10000: 'Gambler',
-      100000: 'Poker Facer',
-      500000: 'Rich Fucker',
-      1000000: 'Hand Of Fate',
+      10000: 'Newbie',
+      100000: 'Gambler',
+      10000000: 'Senior Gambler',
+      50000000000: 'Legend Gambler',
+      10000000000000: 'Hand Of Fate',
     };
     const nextLevel = levelObject[level];
     ref.child(`${msg.author.id}`).update({
@@ -41,7 +45,7 @@ module.exports = {
     return temp.level;
   },
   getNextLevelXp: (xp) => {
-    const levelAry = [1000, 10000, 100000, 500000, 1000000];
+    const levelAry = [10000, 100000, 100000, 10000000, 50000000000, 10000000000000];
     for (const val of levelAry) {
       if (xp <= val) {
         return val;
