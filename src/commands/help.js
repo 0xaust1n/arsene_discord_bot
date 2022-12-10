@@ -40,6 +40,6 @@ module.exports = {
       )
       .setTimestamp();
 
-    msg.channel.send({ embeds: [resultEmbed] });
+    msg.reply({ embeds: [resultEmbed] });
   },
 };
