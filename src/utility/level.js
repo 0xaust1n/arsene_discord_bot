@@ -6,7 +6,7 @@ module.exports = {
   name: 'level',
   description: 'utility for function level',
   checkLevel: (level, currentXp) => {
-    const levelAry = [1000, 10000, 100000, 10000000, 50000000000, 10000000000000];
+    const levelAry = [10000, 100000, 10000000, 50000000000, 10000000000000];
     const titleAry = ['Newbie', 'Gambler', 'Senior Gambler', 'Legend Gambler', 'Hand Of Fate'];
     const temp = {};
     for (const [index, val] of levelAry.entries()) {
