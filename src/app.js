@@ -19,10 +19,10 @@ handlerAry.forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 //init real-time db
-const serviceAccount = require('../serviceAccountKey.json');
-
+const dbConfig = process.env.FIREBASE;
+const serviceObject = JSON.parse(dbConfig);
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
+  credential: admin.credential.cert(serviceObject),
   databaseURL: 'https://sodium-burner-326201-default-rtdb.asia-southeast1.firebasedatabase.app',
   databaseAuthVariableOverride: {
     uid: 'arsene_discord_bot',
