@@ -6,8 +6,8 @@ module.exports = {
   name: 'level',
   description: 'utility for function level',
   checkLevel: (level, currentXp) => {
-    const levelAry = [10000, 100000, 10000000, 50000000000, 10000000000000];
-    const titleAry = ['Newbie', 'Gambler', 'Senior Gambler', 'Legend Gambler', 'Hand Of Fate'];
+    const levelAry = [0, 10000, 100000, 10000000, 50000000000, 10000000000000];
+    const titleAry = ['Fish', 'Newbie', 'Gambler', 'Senior Gambler', 'Legend Gambler', 'Hand Of Fate'];
     const temp = {};
     for (const [index, val] of levelAry.entries()) {
       if (currentXp >= val) {
