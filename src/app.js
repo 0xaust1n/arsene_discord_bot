@@ -19,7 +19,7 @@ handlerAry.forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 //init real-time db
-const serviceAccount = require('./configs/serviceAccountKey.json');
+const serviceAccount = require('../serviceAccountKey.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
