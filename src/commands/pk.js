@@ -1,5 +1,4 @@
 const { EmbedBuilder } = require('discord.js');
-const reward = require('./reward');
 
 module.exports = {
   name: 'pk',
@@ -50,13 +49,15 @@ module.exports = {
     }
 
     const clientNumber = getRandomInt(1000);
-    const smallRate = (1 / ((1000 - clientNumber) / 1000)).toFixed(2);
-    const bigRate = (1 / (clientNumber / 1000)).toFixed(2);
-    if (clientNumber == 1) {
+    let smallRate = (1 / ((1000 - clientNumber) / 1000)).toFixed(2);
+    let bigRate = (1 / (clientNumber / 1000)).toFixed(2);
+    if (clientNumber == 1000) {
+      bigRate = 100;
       smallRate = 1000;
     }
     if (clientNumber == 1) {
-      bigRate = 100;
+      bigRate = 1000;
+      smallRate = 100;
     }
 
     const responseString =
@@ -116,8 +117,8 @@ module.exports = {
           `你的數字為: ${clientNumber}\n` +
           `我的數字為: ${botNumber}\n` +
           `你的下注為: ${bet}\n` +
-          `${isWin ? '你贏了' : '你輸了'} ${Math.floor(inputLeverage * bettingOdd)} ${emoji} \n` +
-          `你現在籌碼數量為: ${total} ${emoji} \n`;
+          `${isWin ? '你贏了' : '你輸了'} ${Math.floor(inputLeverage * bettingOdd).toLocaleString()} ${emoji} \n` +
+          `你現在籌碼數量為: ${total.toLocaleString()} ${emoji} \n`;
 
         const resultEmbed = new EmbedBuilder()
           .setColor('#0099ff')
