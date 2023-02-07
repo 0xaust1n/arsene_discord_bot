@@ -25,7 +25,7 @@ module.exports = {
       return msg.reply({ embeds: [resultEmbed] });
     }
 
-    let acceptArgs = ['s', 'save', 'w', 'withdraw', 'get', 'g'];
+    let acceptArgs = ['d', 'deposit', 'w', 'withdraw', 'get', 'g'];
     if (!acceptArgs.includes(firstArg) && firstArg != undefined) {
       const resultString = `BANK參數錯誤！ 範例： \`atm get\``;
 
@@ -111,7 +111,6 @@ module.exports = {
 
     if (firstArg == 'w') {
       const atmAmount = await atm.get(user);
-      console.log(atmAmount);
       if (inputAmount > atmAmount) {
         const resultString = `
           BANK參數錯誤！存款餘額不足！範例： \`atm get ${atmAmount}\`
