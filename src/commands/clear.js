@@ -1,7 +1,7 @@
 module.exports = {
   name: 'clear',
   description: 'this is a clear command!',
-  aliases: ['cl', 'c'],
+  aliases: ['cl'],
   prems: ['MANAGE_MESSAGES'],
   async execute(msg, args, client) {
     const emoji = client.emojis.cache.get('738680578974548038');
