@@ -48,6 +48,9 @@ module.exports = {
       return;
     }
 
+    // remove input leverage from user
+    await leverage.add(msg.author, inputLeverage * -1);
+
     const clientNumber = getRandomInt(1000);
     let smallRate = (1 / ((1000 - clientNumber) / 1000)).toFixed(2);
     let bigRate = (1 / (clientNumber / 1000)).toFixed(2);
@@ -82,7 +85,7 @@ module.exports = {
     const collector = msg.channel.createMessageCollector({ filter, time: 20000 });
     let isReply = false;
     let isWin = false;
-    let bettingOdd = 1;
+    let bettingRate = 1;
     let bet = '';
     let total = 0;
     const botNumber = getRandomInt(1000);
@@ -92,32 +95,33 @@ module.exports = {
       if (reply.toLocaleLowerCase() == 'big' || reply.toLocaleLowerCase() == 'b') {
         isReply = true;
         isWin = botNumber < clientNumber ? true : false;
-        bettingOdd = isWin ? bigRate : 1;
+        bettingRate = isWin ? bigRate : 1;
         bet = '大';
       } else if (reply.toLocaleLowerCase() == 'small' || reply.toLocaleLowerCase() == 's') {
         isReply = true;
         isWin = botNumber > clientNumber ? true : false;
-        bettingOdd = isWin ? smallRate : 1;
+        bettingRate = isWin ? smallRate : 1;
         bet = '小';
       } else if (reply.toLocaleLowerCase() == 'tie' || reply.toLocaleLowerCase() == 't') {
         isReply = true;
         isWin = botNumber == clientNumber ? true : false;
-        bettingOdd = isWin ? 1000 : 1;
+        bettingRate = isWin ? 1000 : 1;
         bet = '平手';
       }
 
       if (isReply) {
         if (isWin) {
-          let reward = Math.floor(inputLeverage * bettingOdd);
+          let reward = Math.floor(inputLeverage * bettingRate);
+          await leverage.add(msg.author, inputLeverage);
           total = await leverage.add(msg.author, reward);
         } else {
-          total = await leverage.add(msg.author, inputLeverage * -1);
+          total = await leverage.add(msg.author, 0);
         }
         const resultString =
           `你的數字為: ${clientNumber}\n` +
           `我的數字為: ${botNumber}\n` +
           `你的下注為: ${bet}\n` +
-          `${isWin ? '你贏了' : '你輸了'} ${Math.floor(inputLeverage * bettingOdd).toLocaleString()} ${emoji} \n` +
+          `${isWin ? '你贏了' : '你輸了'} ${Math.floor(inputLeverage * bettingRate).toLocaleString()} ${emoji} \n` +
           `你現在籌碼數量為: ${total.toLocaleString()} ${emoji} \n`;
 
         const resultEmbed = new EmbedBuilder()
@@ -135,9 +139,11 @@ module.exports = {
       }
     });
 
-    collector.on('end', (collected) => {
+    collector.on('end', async (collected) => {
       if (!isReply) {
-        return msg.channel.send('回覆超時!下注失敗');
+        // give half of leverage back to user
+        await leverage.add(msg.author, inputLeverage * 0.5);
+        return msg.reply('回覆超時!下注失敗 懲罰將扣除你的一半賭注');
       }
     });
   },
