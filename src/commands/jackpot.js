@@ -12,8 +12,9 @@ module.exports = {
     // const currentLeverage = await leverage.get(user);
     cd.check(msg, this.name).then((result) => {
       if (result == 'READY') {
-        const max = 500;
-        const prize = getRandomInt(max);
+        const min = 200;
+        const max = 800;
+        const prize = getRandomInt(min, max);
         const bonusArray = [
           1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 3, 1, 1, 5, 1, 1, 1, 1, 1, 1, 10, 1, 1, 1, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1,
           1, 1, 1, 1, 2, 2, 3, 1, 1, 5, 1, 1, 1, 1, 1, 1, 10, 1, 1, 1, 2, 2, 1, 1, 1, 1, 10, 1, 1, 1, 2, 2, 1, 1, 1, 1,
@@ -40,8 +41,10 @@ module.exports = {
   },
 };
 
-const getRandomInt = (max) => {
-  return Math.floor(Math.random() * (max + 1));
+const getRandomInt = (min, max) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
 };
 
 const getRandomIndex = (max) => {
