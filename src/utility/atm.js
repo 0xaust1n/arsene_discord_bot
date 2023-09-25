@@ -5,7 +5,7 @@ const atmRef = db.ref(`/atm`);
 module.exports = {
   name: 'atm ',
   description: 'utility for atm',
-  save: async (user, a) => {
+  deposit: async (user, a) => {
     //return int
     const amount = parseInt(a);
     const dbResult = await atmRef.child(user.id).once('value');
