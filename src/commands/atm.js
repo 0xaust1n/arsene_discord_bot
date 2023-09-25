@@ -77,7 +77,7 @@ module.exports = {
       return msg.reply({ embeds: [resultEmbed] });
     }
 
-    if (firstArg == 's') {
+    if (firstArg == 'd') {
       const currentLeverage = await leverage.get(user);
       if (inputAmount > currentLeverage) {
         const resultString = `
@@ -93,7 +93,7 @@ module.exports = {
         return msg.reply({ embeds: [resultEmbed] });
       } else {
         const cash = await leverage.add(user, inputAmount * -1);
-        const amount = await atm.save(user, inputAmount);
+        const amount = await atm.deposit(user, inputAmount);
         const resultString =
           `存入: ${inputAmount.toLocaleString()} ${emoji} \n` +
           `餘額: ${amount.toLocaleString()} ${emoji} \n` +
