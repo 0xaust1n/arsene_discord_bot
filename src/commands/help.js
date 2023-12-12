@@ -34,7 +34,7 @@ module.exports = {
       .setAuthor({
         name: '→詳細指令解釋點我',
         iconURL: client.user.displayAvatarURL({ dynamic: true }),
-        url: 'https://github.com/0xaust1n/arsene_discord_bot/blob/master/command_list.cht.md',
+        url: 'https://github.com/0xaust1n/arsene_discord_bot/blob/master/command-list.cht.md',
       })
       .setDescription(`目前指令前綴為: \`${prefix}\``)
       .setThumbnail(client.user.displayAvatarURL({ dynamic: true }))
