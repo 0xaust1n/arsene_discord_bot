@@ -11,8 +11,13 @@ module.exports = {
     if (papa.id == msg.author.id) {
       return msg.reply(`自己跟自己乞討是什麼概念? 請開始你的表演`);
     }
+
     if (isNaN(args[1])) {
       return msg.reply(`乞討參數錯誤! 請輸入數字! 指令範例:\`!beg @AustinBabe 100\``);
+    }
+
+    if (parseInt(args[1]) <= 0) {
+      return msg.reply(`乞討參數錯誤! 數字必須為大於0的數字 指令範例:\`!beg @AustinBabe 100\``);
     }
 
     const amount = parseInt(args[1]);

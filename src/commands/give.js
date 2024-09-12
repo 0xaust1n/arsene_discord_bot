@@ -17,6 +17,11 @@ module.exports = {
     if (isNaN(args[1])) {
       return msg.reply(`斗內參數錯誤! 請輸入數字! 指令範例:\`!g @AustinBabe 100\``);
     }
+
+    if (parseInt(args[1]) <= 0) {
+      return msg.reply(`斗內參數錯誤! 數字必須為大於0的數字 指令範例:\`!g @AustinBabe 100\``);
+    }
+
     const amount = parseInt(args[1]);
     const currentLeverage = await leverage.get(msg.author);
     const isEnough = currentLeverage >= amount ? true : false;
