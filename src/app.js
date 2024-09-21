@@ -14,7 +14,7 @@ const client = new Client({
 client.commands = new Collection();
 client.events = new Collection();
 //init handler
-const handlerAry = ['command-handler', 'event-handler', 'slash-handler'];
+const handlerAry = ['command-handler', 'event-handler', 'slash-handler', 'button-actions-handler'];
 handlerAry.forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
