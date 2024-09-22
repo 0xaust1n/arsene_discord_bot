@@ -23,6 +23,7 @@ module.exports = {
         content: '你不能對自己的物品出價',
         ephemeral: true,
       });
+      return;
     }
 
     if (
