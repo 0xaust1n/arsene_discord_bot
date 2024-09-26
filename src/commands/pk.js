@@ -51,7 +51,8 @@ module.exports = {
     // remove input leverage from user
     await leverage.add(msg.author, inputLeverage * -1);
 
-    const clientNumber = getRandomInt(1000);
+    const random = require('../utility/random');
+    const clientNumber = random.getRandomInt(1, 1000);
     let smallRate = (1 / ((1000 - clientNumber) / 1000)).toFixed(2);
     let bigRate = (1 / (clientNumber / 1000)).toFixed(2);
     if (clientNumber == 1000) {
@@ -88,7 +89,7 @@ module.exports = {
     let bettingRate = 1;
     let bet = '';
     let total = 0;
-    const botNumber = getRandomInt(1000);
+    const botNumber = random.getRandomInt(1, 1000);
 
     collector.on('collect', async (m) => {
       const reply = m.content;
@@ -112,7 +113,7 @@ module.exports = {
       if (isReply) {
         if (isWin) {
           let reward = Math.floor(inputLeverage * bettingRate);
-          await leverage.add(msg.author, inputLeverage);
+          // await leverage.add(msg.author, inputLeverage);
           total = await leverage.add(msg.author, reward);
         } else {
           total = await leverage.add(msg.author, 0);

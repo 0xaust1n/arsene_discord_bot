@@ -63,7 +63,8 @@ module.exports = {
     }
 
     //random flip result
-    const dice = getRandomInt(6);
+    const random = require('../utility/random');
+    const dice = random.getRandomInt(1, 6);
     const isEven = dice % 2 == 0 ? true : false;
     let result = false;
     let gaining = 0;
@@ -71,7 +72,7 @@ module.exports = {
       const number = parseInt(input);
       if (number == dice) {
         result = true;
-        gaining = inputLeverage * 10;
+        gaining = inputLeverage * 6;
       } else {
         gaining = -inputLeverage;
       }
@@ -117,8 +118,4 @@ module.exports = {
 
     msg.reply({ embeds: [resultEmbed] });
   },
-};
-
-const getRandomInt = (max) => {
-  return Math.floor(Math.random() * max + 1);
 };

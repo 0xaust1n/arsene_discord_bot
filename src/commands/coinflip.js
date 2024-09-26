@@ -9,13 +9,17 @@ module.exports = {
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
     if (args.length < 1) {
-      msg.reply(`擲硬幣指令錯誤! \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `擲硬幣指令錯誤! \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`
+      );
       return;
     }
     const acceptArgs = ['h', 'heads', 't', 'tails'];
     const input = args.shift().toLocaleLowerCase().substring(0, 1);
     if (!acceptArgs.includes(input)) {
-      msg.reply(`擲硬幣參數錯誤! \n` + `範例: \`coinflip tails\`\n` + `請重新輸入`);
+      msg.reply(
+        `擲硬幣參數錯誤! \n` + `範例: \`coinflip tails\`\n` + `請重新輸入`
+      );
       return;
     }
     let inputLeverage = 0;
@@ -23,16 +27,31 @@ module.exports = {
     const currentLeverage = await leverage.get(user);
     const acceptAmountArgs = ['a', 'all'];
     if (!args.length) {
-      msg.reply(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `籌碼數量參數錯誤! 未輸入數量 \n` +
+          `範例: \`coinflip tails 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
-    if (isNaN(args[0]) && !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)) {
-      msg.reply(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+    if (
+      isNaN(args[0]) &&
+      !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)
+    ) {
+      msg.reply(
+        `籌碼數量參數錯誤! 請輸入數字或是 **all** \n` +
+          `範例: \`coinflip tails 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
 
     if (parseInt(args[0]) <= 0) {
-      msg.reply(`籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`coinflip tails 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `籌碼數量參數錯誤! 數量請大於0 \n` +
+          `範例: \`coinflip tails 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
 
@@ -59,7 +78,8 @@ module.exports = {
     }
 
     //random flip result
-    const flip = getRandomInt(2) === 1 ? 'h' : 't';
+    const random = require('../utility/random');
+    const flip = random.getRandomInt(0, 1) === 1 ? 'h' : 't';
     const result = input == flip ? true : false;
     const gaining = result == true ? inputLeverage : -inputLeverage;
     const coinImgMap = new Map();
@@ -89,8 +109,4 @@ module.exports = {
 
     msg.reply({ embeds: [resultEmbed] });
   },
-};
-
-const getRandomInt = (max) => {
-  return Math.floor(Math.random() * max + 1);
 };
