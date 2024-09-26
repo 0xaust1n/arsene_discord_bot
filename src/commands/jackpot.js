@@ -58,7 +58,7 @@ module.exports = {
               `吉！${bonus}倍獎勵！恭喜你獲得 ${prize * bonus} ${emoji}`
             );
           }
-          if (bonus >= 5 && bonus == 10) {
+          if (bonus >= 5 && bonus < 10) {
             msg.reply(
               `中吉！${bonus}倍獎勵！恭喜你獲得 ${prize * bonus} ${emoji}`
             );
