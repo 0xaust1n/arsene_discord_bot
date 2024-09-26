@@ -35,24 +35,38 @@ module.exports = {
 
         if (prize == max) {
           leverage.add(user, prize * 1000);
-          msg.reply(`大吉！恭喜你獲得大獎 ${prize * 1000}  ${emoji} ${emoji} ${emoji} ${emoji} ${emoji}`);
+          msg.reply(
+            `大吉！${1000}倍獎勵！恭喜你獲得大獎 ${
+              prize * 1000
+            }  ${emoji} ${emoji} ${emoji} ${emoji} ${emoji}`
+          );
         }
 
         if (prize == min) {
           leverage.add(user, prize * 100);
-          msg.reply(`末吉！恭喜你獲得安慰獎 ${prize * 1000}  ${emoji} ${emoji} ${emoji}`);
+          msg.reply(
+            `末吉！${1000}倍獎勵！恭喜你獲得安慰獎 ${
+              prize * 1000
+            } 雖小只是一時 由我幫你改運  ${emoji} ${emoji} ${emoji}`
+          );
         }
 
         if (bonus > 1) {
           leverage.add(user, prize * bonus);
           if (bonus == 10) {
-            msg.reply(`吉！恭喜你獲得 ${prize * bonus} ${emoji}`);
+            msg.reply(
+              `吉！${bonus}倍獎勵！恭喜你獲得 ${prize * bonus} ${emoji}`
+            );
           }
           if (bonus >= 5 && bonus == 10) {
-            msg.reply(`中吉！恭喜你獲得 ${prize * bonus} ${emoji}`);
+            msg.reply(
+              `中吉！${bonus}倍獎勵！恭喜你獲得 ${prize * bonus} ${emoji}`
+            );
           }
           if (bonus < 5) {
-            msg.reply(`小吉！恭喜你獲得 ${prize * bonus} ${emoji}`);
+            msg.reply(
+              `小吉！${bonus}倍獎勵！恭喜你獲得 ${prize * bonus} ${emoji}`
+            );
           }
         } else {
           leverage.add(user, prize);
