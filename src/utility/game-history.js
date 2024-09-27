@@ -3,23 +3,29 @@ const db = admin.database();
 const ref = db.ref('/game-history');
 
 module.exports = {
-  saveHistory: async (key, value) => {
+  saveHistory: async (key, input) => {
     const existResult = await ref.child(key).get();
     const exist = existResult.val();
-    if (exist) {
+    if (exist && input.isWin == false) {
+      const totalValue = input.pool + exist.pool;
       await ref.child(key).update({
-        pool: value.pool + exist.pool,
-        ...value,
+        pool: totalValue,
+        deck: input.deck,
+      });
+    } else {
+      await ref.child(key).set({
+        pool: input.pool,
+        deck: input.deck,
       });
     }
   },
 
-  addRandomToPool: async (key, value) => {
+  addToPool: async (key, value) => {
     const existResult = await ref.child(key).get();
     const exist = existResult.val();
     if (exist) {
       await ref.child(key).update({
-        pool: exist.pool > 0 ? value.pool + exist.pool : exist.pool,
+        pool: value + exist.pool,
         deck: exist.deck,
       });
     }
