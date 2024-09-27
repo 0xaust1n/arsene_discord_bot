@@ -16,12 +16,18 @@ module.exports = {
     const input = isNaN(args[0]) ? args[0].toLocaleLowerCase() : args[0];
 
     if (isNaN(input) && !acceptAmountArgs.includes(input)) {
-      msg.reply(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`pk 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `籌碼數量參數錯誤! 請輸入數字或是 **all** \n` +
+          `範例: \`pk 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
 
     if (parseInt(input) <= 0) {
-      msg.reply(`籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`pk 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`pk 50\`\n` + `請重新輸入`
+      );
       return;
     }
 
@@ -73,7 +79,10 @@ module.exports = {
       `平手: \`Tie\` or \`T\` | 賠率 \`1000\` `;
     const responseEmbed = new EmbedBuilder()
       .setColor('#0099ff')
-      .setAuthor({ name: msg.author.username, iconURL: msg.author.displayAvatarURL({ dynamic: true }) })
+      .setAuthor({
+        name: msg.author.username,
+        iconURL: msg.author.displayAvatarURL({ dynamic: true }),
+      })
       .addFields({ name: 'PK', value: responseString })
       .setTimestamp();
 
@@ -83,7 +92,10 @@ module.exports = {
       return m.author == msg.author;
     };
 
-    const collector = msg.channel.createMessageCollector({ filter, time: 20000 });
+    const collector = msg.channel.createMessageCollector({
+      filter,
+      time: 20000,
+    });
     let isReply = false;
     let isWin = false;
     let bettingRate = 1;
@@ -93,17 +105,26 @@ module.exports = {
 
     collector.on('collect', async (m) => {
       const reply = m.content;
-      if (reply.toLocaleLowerCase() == 'big' || reply.toLocaleLowerCase() == 'b') {
+      if (
+        reply.toLocaleLowerCase() == 'big' ||
+        reply.toLocaleLowerCase() == 'b'
+      ) {
         isReply = true;
         isWin = botNumber < clientNumber ? true : false;
         bettingRate = isWin ? bigRate : 1;
         bet = '大';
-      } else if (reply.toLocaleLowerCase() == 'small' || reply.toLocaleLowerCase() == 's') {
+      } else if (
+        reply.toLocaleLowerCase() == 'small' ||
+        reply.toLocaleLowerCase() == 's'
+      ) {
         isReply = true;
         isWin = botNumber > clientNumber ? true : false;
         bettingRate = isWin ? smallRate : 1;
         bet = '小';
-      } else if (reply.toLocaleLowerCase() == 'tie' || reply.toLocaleLowerCase() == 't') {
+      } else if (
+        reply.toLocaleLowerCase() == 'tie' ||
+        reply.toLocaleLowerCase() == 't'
+      ) {
         isReply = true;
         isWin = botNumber == clientNumber ? true : false;
         bettingRate = isWin ? 1000 : 1;
@@ -122,12 +143,17 @@ module.exports = {
           `你的數字為: ${clientNumber}\n` +
           `我的數字為: ${botNumber}\n` +
           `你的下注為: ${bet}\n` +
-          `${isWin ? '你贏了' : '你輸了'} ${Math.floor(inputLeverage * bettingRate).toLocaleString()} ${emoji} \n` +
+          `${isWin ? '你贏了' : '你輸了'} ${Math.floor(
+            inputLeverage * (bettingRate - (isWin ? 1 : 0))
+          ).toLocaleString()} ${emoji} \n` +
           `你現在籌碼數量為: ${total.toLocaleString()} ${emoji} \n`;
 
         const resultEmbed = new EmbedBuilder()
           .setColor('#0099ff')
-          .setAuthor({ name: msg.author.username, iconURL: msg.author.displayAvatarURL({ dynamic: true }) })
+          .setAuthor({
+            name: msg.author.username,
+            iconURL: msg.author.displayAvatarURL({ dynamic: true }),
+          })
           .setThumbnail(msg.author.displayAvatarURL({ dynamic: true }))
           .addFields({ name: 'PK', value: resultString })
 
