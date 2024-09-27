@@ -13,12 +13,13 @@ module.exports = {
       });
     }
   },
-  savePool: async (key, value) => {
+
+  addRandomToPool: async (key, value) => {
     const existResult = await ref.child(key).get();
     const exist = existResult.val();
     if (exist) {
       await ref.child(key).update({
-        pool: value.pool + exist.pool,
+        pool: exist.pool > 0 ? value.pool + exist.pool : exist.pool,
         ...exist.deck,
       });
     }

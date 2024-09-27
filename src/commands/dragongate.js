@@ -247,7 +247,7 @@ module.exports = {
 
       const random = require('../utility/random');
       // add random leverage to pool
-      await gameHistoryUtli.savePool(this.name, {
+      await gameHistoryUtli.addRandomToPool(this.name, {
         pool: +random.getRandomInt(5000, 50000),
       });
     });
