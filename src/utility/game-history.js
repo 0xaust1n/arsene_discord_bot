@@ -13,7 +13,16 @@ module.exports = {
       });
     }
   },
-
+  savePool: async (key, value) => {
+    const existResult = await ref.child(key).get();
+    const exist = existResult.val();
+    if (exist) {
+      await ref.child(key).update({
+        pool: value.pool + exist.pool,
+        ...exist.deck,
+      });
+    }
+  },
   getHistory: async (key) => {
     const dbReuslt = await ref.child(key).get();
     return dbReuslt.val();
