@@ -20,7 +20,7 @@ module.exports = {
     if (exist) {
       await ref.child(key).update({
         pool: exist.pool > 0 ? value.pool + exist.pool : exist.pool,
-        ...exist.deck,
+        deck: exist.deck,
       });
     }
   },
