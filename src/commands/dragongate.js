@@ -39,7 +39,10 @@ module.exports = {
     const acceptArgs = ['pool', 'p'];
     if (args[0]) {
       if (acceptArgs.includes(args[0].toLocaleLowerCase())) {
-        const poolMessage = `目前底池為 ${pool.toLocaleString()} ${coinEmoji}`;
+        const poolMessage =
+          `目前底池為 ${pool.toLocaleString()} ${coinEmoji}\n` +
+          `撞柱賠率為 ${rate} 倍\n` +
+          `預設底池範圍為 ${configs.min.toLocaleString()} ~ ${configs.max.toLocaleString()} ${coinEmoji}`;
         const embedMessage = this.message(poolMessage);
         msg.reply({ embeds: [embedMessage] });
         return;
