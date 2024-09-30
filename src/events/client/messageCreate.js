@@ -11,7 +11,9 @@ module.exports = {
     //seeking command
     const arg = msg.content.slice(prefix.length).split(/ +/);
     const cmd = arg.shift().toLocaleLowerCase(); //shift first element
-    const command = client.commands.get(`${cmd}`) || client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
+    const command =
+      client.commands.get(`${cmd}`) ||
+      client.commands.find((a) => a.aliases && a.aliases.includes(cmd));
     // check command is exist or not
     if (command) {
       //check permission before execute
@@ -25,7 +27,7 @@ module.exports = {
         }
       }
       if (isInvalid) {
-        return msg.channel.send(`你沒有權限使用\`${command.name}\`指令`);
+        return msg.reply(`你沒有權限使用\`${command.name}\`指令`);
       }
       command.execute(msg, arg, client);
     }

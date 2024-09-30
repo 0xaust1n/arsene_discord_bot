@@ -34,4 +34,9 @@ module.exports = {
       return 50;
     }
   },
+  set: async (user, amount) => {
+    ref.child(`${user.id}`).update({
+      amount: amount,
+    });
+  },
 };

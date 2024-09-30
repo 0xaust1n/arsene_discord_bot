@@ -2,7 +2,7 @@ module.exports = {
   name: 'clear',
   description: 'this is a clear command!',
   aliases: ['cl'],
-  prems: ['MANAGE_MESSAGES'],
+  prems: ['Administrator'],
   async execute(msg, args, client) {
     const emoji = client.emojis.cache.get('738680578974548038');
     if (args[0]) {
@@ -19,10 +19,12 @@ module.exports = {
       msg.channel.bulkDelete(msgs);
     });
 
-    await msg.channel.send(`已刪除 \`${!args[0] ? 5 : args[0]}\` 筆訊息`).then(() => {
-      setTimeout(() => {
-        msg.channel.bulkDelete(1);
-      }, 2000);
-    });
+    await msg.channel
+      .send(`已刪除 \`${!args[0] ? 5 : args[0]}\` 筆訊息`)
+      .then(() => {
+        setTimeout(() => {
+          msg.channel.bulkDelete(1);
+        }, 2000);
+      });
   },
 };
