@@ -9,34 +9,61 @@ module.exports = {
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
     if (args.length < 1) {
-      msg.reply(`擲骰子指令錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `擲骰子指令錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`
+      );
       return;
     }
     const tempGuessing = args.shift().toLocaleLowerCase();
     const acceptArgs = ['odd', 'o', 'even', 'e', '1', '2', '3', '4', '5', '6'];
     if (parseInt(tempGuessing) > 6) {
-      msg.reply(`擲骰子參數錯誤 我們的骰子只有6點喲! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `擲骰子參數錯誤 我們的骰子只有6點喲! \n` +
+          `範例: \`dice odd 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
     if (!acceptArgs.includes(tempGuessing)) {
-      msg.reply(`擲骰子參數錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `擲骰子參數錯誤! \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`
+      );
       return;
     }
     const input = tempGuessing.substring(0, 1);
     let inputLeverage = 0;
     const currentLeverage = await leverage.get(user);
-    const acceptAmountArgs = ['a', 'all'];
+    const acceptAmountArgs = ['a', 'all', 'h', 'half'];
+    // parse number
+    const numberUtil = require('../utility/number');
+    args[0] = numberUtil.numberParse(args[0], currentLeverage);
+
     if (!args.length) {
-      msg.reply(`籌碼數量參數錯誤! 未輸入數量 \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `籌碼數量參數錯誤! 未輸入數量 \n` +
+          `範例: \`dice odd 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
-    if (isNaN(args[0]) && !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)) {
-      msg.reply(`籌碼數量參數錯誤! 請輸入數字或是 **all** \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+    if (
+      isNaN(args[0]) &&
+      !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)
+    ) {
+      msg.reply(
+        `籌碼數量參數錯誤! 請輸入數字或是 **all** \n` +
+          `範例: \`dice odd 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
 
     if (parseInt(args[0]) <= 0) {
-      msg.reply(`籌碼數量參數錯誤! 數量請大於0 \n` + `範例: \`dice odd 50\`\n` + `請重新輸入`);
+      msg.reply(
+        `籌碼數量參數錯誤! 數量請大於0 \n` +
+          `範例: \`dice odd 50\`\n` +
+          `請重新輸入`
+      );
       return;
     }
 

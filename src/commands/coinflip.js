@@ -25,7 +25,7 @@ module.exports = {
     let inputLeverage = 0;
     // init user amount
     const currentLeverage = await leverage.get(user);
-    const acceptAmountArgs = ['a', 'all'];
+    const acceptAmountArgs = ['a', 'all', 'h', 'half'];
     if (!args.length) {
       msg.reply(
         `籌碼數量參數錯誤! 未輸入數量 \n` +
@@ -34,10 +34,11 @@ module.exports = {
       );
       return;
     }
-    if (
-      isNaN(args[0]) &&
-      !acceptAmountArgs.includes(`${args[0].toLocaleLowerCase()}`)
-    ) {
+
+    const numberUtil = require('../utility/number');
+    args[0] = numberUtil.numberParse(args[0], currentLeverage);
+
+    if (isNaN(args[0])) {
       msg.reply(
         `籌碼數量參數錯誤! 請輸入數字或是 **all** \n` +
           `範例: \`coinflip tails 50\`\n` +

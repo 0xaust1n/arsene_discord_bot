@@ -12,7 +12,10 @@ module.exports = {
       return msg.reply(`PK指令錯誤! \n` + `範例: \`pk 50\`\n` + `請重新輸入`);
     }
     const currentLeverage = await leverage.get(msg.author);
-    const acceptAmountArgs = ['a', 'all'];
+    const acceptAmountArgs = ['a', 'all', 'h', 'half'];
+    // parse number
+    const numberUtil = require('../utility/number');
+    args[0] = numberUtil.numberParse(args[0], currentLeverage);
     const input = isNaN(args[0]) ? args[0].toLocaleLowerCase() : args[0];
 
     if (isNaN(input) && !acceptAmountArgs.includes(input)) {

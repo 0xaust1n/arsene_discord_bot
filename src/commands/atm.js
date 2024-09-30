@@ -15,23 +15,31 @@ module.exports = {
       firstArg = 'g';
       const amount = await atm.get(user);
       const cash = await leverage.get(user);
-      const resultString = `現金: ${cash.toLocaleString()} ${emoji}\n` + `餘額: ${amount.toLocaleString()} ${emoji}`;
+      const resultString =
+        `現金: ${cash.toLocaleString()} ${emoji}\n` +
+        `餘額: ${amount.toLocaleString()} ${emoji}`;
       const resultEmbed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+        .setAuthor({
+          name: user.username,
+          iconURL: user.displayAvatarURL({ dynamic: true }),
+        })
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .addFields({ name: 'BANK', value: resultString })
         .setTimestamp();
       return msg.reply({ embeds: [resultEmbed] });
     }
 
-    let acceptArgs = ['d', 'deposit', 'w', 'withdraw', 'get', 'g'];
+    let acceptArgs = ['d', 'deposit', 's', 'save', 'w', 'withdraw', 'get', 'g'];
     if (!acceptArgs.includes(firstArg) && firstArg != undefined) {
       const resultString = `BANK參數錯誤！ 範例： \`atm get\``;
 
       const resultEmbed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+        .setAuthor({
+          name: user.username,
+          iconURL: user.displayAvatarURL({ dynamic: true }),
+        })
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .addFields({ name: 'BANK', value: resultString })
         .setTimestamp();
@@ -39,13 +47,15 @@ module.exports = {
     }
 
     firstArg = firstArg.substring(0, 1);
-    if (args[1] == 'a' || args[1] == 'all') {
-      if (firstArg == 'w') {
-        args[1] = await atm.get(user);
-      } else {
-        args[1] = await leverage.get(user);
-      }
+
+    const numberUtil = require('../utility/number');
+    let currentAmount = 0;
+    if (firstArg == 'w') {
+      currentAmount = await atm.get(user);
+    } else {
+      currentAmount = await leverage.get(user);
     }
+    args[1] = numberUtil.numberParse(args[1], currentAmount);
 
     if (isNaN(args[1]) && firstArg !== 'g') {
       const resultString = `
@@ -54,7 +64,10 @@ module.exports = {
 
       const resultEmbed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+        .setAuthor({
+          name: user.username,
+          iconURL: user.displayAvatarURL({ dynamic: true }),
+        })
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .addFields({ name: 'BANK', value: resultString })
         .setTimestamp();
@@ -70,14 +83,17 @@ module.exports = {
 
       const resultEmbed = new EmbedBuilder()
         .setColor(0x0099ff)
-        .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+        .setAuthor({
+          name: user.username,
+          iconURL: user.displayAvatarURL({ dynamic: true }),
+        })
         .setThumbnail(user.displayAvatarURL({ dynamic: true }))
         .addFields({ name: 'BANK', value: resultString })
         .setTimestamp();
       return msg.reply({ embeds: [resultEmbed] });
     }
 
-    if (firstArg == 'd') {
+    if (firstArg == 'd' || firstArg == 's') {
       const currentLeverage = await leverage.get(user);
       if (inputAmount > currentLeverage) {
         const resultString = `
@@ -86,7 +102,10 @@ module.exports = {
 
         const resultEmbed = new EmbedBuilder()
           .setColor(0x0099ff)
-          .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+          .setAuthor({
+            name: user.username,
+            iconURL: user.displayAvatarURL({ dynamic: true }),
+          })
           .setThumbnail(user.displayAvatarURL({ dynamic: true }))
           .addFields({ name: 'BANK', value: resultString })
           .setTimestamp();
@@ -101,7 +120,10 @@ module.exports = {
 
         const resultEmbed = new EmbedBuilder()
           .setColor(0x0099ff)
-          .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+          .setAuthor({
+            name: user.username,
+            iconURL: user.displayAvatarURL({ dynamic: true }),
+          })
           .setThumbnail(user.displayAvatarURL({ dynamic: true }))
           .addFields({ name: 'BANK', value: resultString })
           .setTimestamp();
@@ -118,7 +140,10 @@ module.exports = {
 
         const resultEmbed = new EmbedBuilder()
           .setColor(0x0099ff)
-          .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+          .setAuthor({
+            name: user.username,
+            iconURL: user.displayAvatarURL({ dynamic: true }),
+          })
           .setThumbnail(user.displayAvatarURL({ dynamic: true }))
           .addFields({ name: 'BANK', value: resultString })
           .setTimestamp();
@@ -133,7 +158,10 @@ module.exports = {
 
         const resultEmbed = new EmbedBuilder()
           .setColor(0x0099ff)
-          .setAuthor({ name: user.username, iconURL: user.displayAvatarURL({ dynamic: true }) })
+          .setAuthor({
+            name: user.username,
+            iconURL: user.displayAvatarURL({ dynamic: true }),
+          })
           .setThumbnail(user.displayAvatarURL({ dynamic: true }))
           .addFields({ name: 'BANK', value: resultString })
           .setTimestamp();
