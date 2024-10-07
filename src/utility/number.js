@@ -3,6 +3,9 @@ module.exports = {
   description: 'utility for function number',
   numberParse: (input, userLevege) => {
     try {
+      if (isNaN(input)) {
+        input = input.toLowerCase();
+      }
       if (input == 'a' || input == 'all') {
         return userLevege.toString();
       }
