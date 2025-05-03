@@ -24,21 +24,21 @@ module.exports = {
     if (!args.length) {
       const errorEmbed = this.createEmbed(
         '❌ 參數錯誤',
-        `籌碼數量參數錯誤! 未輸入數量\n範例: \`rs 50\`\n請重新輸入`,
+        `籌碼數量參數錯誤! 未輸入數量\n範例: \`rr 50\`\n請重新輸入`,
         '#ff0000'
       );
       return msg.reply({ embeds: [errorEmbed] });
     }
 
     const userLeverage = await leverage.get(user);
-    // accpet a or all as input
+
     const numberUtil = require('../utility/number');
-    const inputAmount = parseInt(numberUtil.numberParse(args[0], numberUtil));
+    const inputAmount = parseInt(numberUtil.numberParse(args[0], userLeverage));
 
     if (isNaN(inputAmount)) {
       const errorEmbed = this.createEmbed(
         '❌ 參數錯誤',
-        `籌碼數量參數錯誤! 輸入的數量不是數字\n範例: \`rs 50\`\n請重新輸入`,
+        `籌碼數量參數錯誤! 輸入的數量不是數字\n範例: \`rr 50\`\n請重新輸入`,
         '#ff0000'
       );
       return msg.reply({ embeds: [errorEmbed] });
