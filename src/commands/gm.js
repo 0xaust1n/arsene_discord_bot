@@ -40,7 +40,7 @@ module.exports = {
       const numberUtil = require('../utility/number');
       args[2] = numberUtil.numberParse(args[2], 0);
       const amount = parseInt(args[2]);
-      leverage.add(target, amount);
+      await leverage.add(target, amount);
 
       const resultEmbed = new EmbedBuilder()
         .setColor('#0099ff')

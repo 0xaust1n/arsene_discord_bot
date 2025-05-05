@@ -52,7 +52,7 @@ module.exports = {
       return msg.reply(`你也有足夠沒錢錢啊 裝什麼大爺`);
     }
     leverage.add(msg.author, amount * -1);
-    leverage.add(target, amount);
+    await leverage.add(target, amount);
 
     const resultEmbed = new EmbedBuilder()
       .setColor('#0099ff')
