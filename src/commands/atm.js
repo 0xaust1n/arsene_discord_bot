@@ -114,7 +114,9 @@ module.exports = {
         const cash = await leverage.add(user, inputAmount * -1);
         const amount = await atm.deposit(user, inputAmount);
         const resultString =
+          `========================== \n` +
           `存入: ${inputAmount.toLocaleString()} ${emoji} \n` +
+          `========================== \n` +
           `餘額: ${amount.toLocaleString()} ${emoji} \n` +
           `現金: ${cash.toLocaleString()} ${emoji}\n`;
 
@@ -152,7 +154,9 @@ module.exports = {
         const amount = await atm.withdraw(user, inputAmount);
         const cash = await leverage.add(user, inputAmount);
         const resultString =
+          `========================== \n` +
           `取出: ${inputAmount.toLocaleString()} ${emoji} \n` +
+          `========================== \n` +
           `餘額: ${amount.toLocaleString()} ${emoji} \n` +
           `現金: ${cash.toLocaleString()} ${emoji}\n`;
 
