@@ -44,7 +44,7 @@ module.exports = {
       return msg.reply({ embeds: [errorEmbed] });
     }
 
-    if (userLeverage == 0) {
+    if (userLeverage < 0) {
       const brokeEmbed = this.createEmbed(
         '💸 破產了',
         `籌碼為 0\n子彈你買不起啦幹`,
