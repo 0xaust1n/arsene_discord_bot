@@ -8,9 +8,13 @@ module.exports = {
     //return int
     const amount = parseInt(a);
     const dbResult = await ref.child(user.id).once('value');
-    const temp = dbResult.val();
-    if (temp != null) {
-      let currentAmount = parseInt(temp.amount) + amount;
+    const userInfo = dbResult.val();
+    if (userInfo != null) {
+      let currentAmount = parseInt(userInfo.amount) + amount;
+      // handle negative numbers
+      if (amount < 0 && Math.abs(amount) >= parseInt(userInfo.amount)) {
+        currentAmount = 0;
+      }
       ref.child(`${user.id}`).update({
         name: `${user.username}`,
         amount: currentAmount,
@@ -20,9 +24,9 @@ module.exports = {
   },
   get: async (user) => {
     dbResult = await ref.child(user.id).once('value');
-    const temp = dbResult.val();
-    if (temp != null) {
-      let currentAmount = parseInt(temp.amount);
+    const userInfo = dbResult.val();
+    if (userInfo != null) {
+      let currentAmount = parseInt(userInfo.amount);
       return currentAmount;
     } else {
       ref.child(`${user.id}`).set({

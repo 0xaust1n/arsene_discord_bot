@@ -28,7 +28,7 @@ module.exports = {
     if (args[0] == 'give' || args[0] == 'g') {
       const target = msg.mentions.users.first();
       const numberUtil = require('../utility/number');
-      args[2] = numberUtil.numberParse(args[2], null);
+      args[2] = numberUtil.numberParse(args[2], 0);
       const amount = parseInt(args[2]);
       leverage.add(target, amount);
 
