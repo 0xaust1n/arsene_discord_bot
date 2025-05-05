@@ -63,8 +63,9 @@ module.exports = {
       .addFields({
         name: `抖內警報`,
         value:
-          `爸爸 \`${msg.author.username}\` 抖內了 \`${amount}\` ${emoji} \n` +
-          `給你  <@${target.id}>`,
+          `爸爸 \`${msg.author.username}\` 抖內了 ${amount} ${emoji} \n` +
+          `給你  <@${target.id}> \n` +
+          `你的餘額: ${await leverage.get(target)} ${emoji}`,
       })
       .setTimestamp();
 
