@@ -133,18 +133,26 @@ module.exports = {
         let winEmbed = null;
         if (remainingSlots.length == 1) {
           await leverage.add(user, currentWin * 10);
+          let message =
+            `你贏了\`10\`倍的 ${currentWin.toLocaleString()} ${emoji}\n` +
+            `你的籌碼數量為: ${(
+              await leverage.get(user)
+            ).toLocaleString()} ${emoji}`;
+
           winEmbed = this.createEmbed(
             '🎉 恭喜獲勝! 你是勇者',
-            `你贏了\`10\`倍的 ${currentWin.toLocaleString()} ${emoji}`,
+            message,
             '#0099ff'
           );
         } else {
           await leverage.add(user, currentWin);
-          winEmbed = this.createEmbed(
-            '🎉 恭喜獲勝',
-            `你贏了 ${currentWin.toLocaleString()} ${emoji}`,
-            '#0099ff'
-          );
+          let message =
+            `你贏了 ${currentWin.toLocaleString()} ${emoji}\n` +
+            `你的籌碼數量為: ${(
+              await leverage.get(user)
+            ).toLocaleString()} ${emoji}`;
+
+          winEmbed = this.createEmbed('🎉 恭喜獲勝', message, '#0099ff');
         }
         msg.reply({ embeds: [winEmbed] });
         collector.stop();
