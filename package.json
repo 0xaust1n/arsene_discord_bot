@@ -5,8 +5,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "node src/app.js",
-    "deploy": "node src/deploy-commands.js",
-    "watch": "nodemon src/app.js"
+    "deploy": "node src/deploy-commands.js"
   },
   "dependencies": {
     "@discordjs/rest": "1.7.1",
@@ -15,7 +14,6 @@
     "discord-api-types": "0.37.120",
     "discord.js": "14.25.1",
     "dotenv": "16.6.1",
-    "firebase-admin": "13.6.0",
-    "nodemon": "2.0.22"
+    "firebase-admin": "13.6.0"
   }
 }
