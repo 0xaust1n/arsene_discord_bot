@@ -31,7 +31,7 @@ module.exports = {
           10,10,10,10,10,
         ];
 
-        const bonus = random.gertRandomElemet(bonusArray);
+        const bonus = random.getRandomElement(bonusArray);
 
         if (prize == max) {
           leverage.add(user, prize * 1000);

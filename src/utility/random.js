@@ -5,7 +5,7 @@ module.exports = {
     return chance.integer({ min: min, max: max });
   },
 
-  gertRandomElemet: (array) => {
+  getRandomElement: (array) => {
     return chance.pickone(array);
   },
 };
