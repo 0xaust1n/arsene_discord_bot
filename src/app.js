@@ -2,6 +2,16 @@ const { Client, GatewayIntentBits, Collection } = require('discord.js');
 const admin = require('firebase-admin');
 require('dotenv').config();
 
+const dbConfig = process.env.FIREBASE;
+const serviceObject = JSON.parse(dbConfig);
+admin.initializeApp({
+  credential: admin.credential.cert(serviceObject),
+  databaseURL: 'https://sodium-burner-326201-default-rtdb.asia-southeast1.firebasedatabase.app',
+  databaseAuthVariableOverride: {
+    uid: 'arsene_discord_bot',
+  },
+});
+
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -19,15 +29,6 @@ handlerAry.forEach((handler) => {
   require(`./handlers/${handler}`)(client);
 });
 //init real-time db
-const dbConfig = process.env.FIREBASE;
-const serviceObject = JSON.parse(dbConfig);
-admin.initializeApp({
-  credential: admin.credential.cert(serviceObject),
-  databaseURL: 'https://sodium-burner-326201-default-rtdb.asia-southeast1.firebasedatabase.app',
-  databaseAuthVariableOverride: {
-    uid: 'arsene_discord_bot',
-  },
-});
 
 const token = process.env.TOKEN;
 client.login(token);
