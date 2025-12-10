@@ -1,11 +1,12 @@
 const { EmbedBuilder } = require('discord.js');
+const leverage = require('../utility/leverage');
+const numberUtil = require('../utility/number');
 
 module.exports = {
   name: 'give',
   description: 'this is a give command!',
   aliases: ['give', 'g'],
   async execute(msg, args, client) {
-    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     let target;
     if (msg.mentions.users.first() != undefined) {
@@ -30,7 +31,6 @@ module.exports = {
       return msg.reply({ embeds: [resultEmbed] });
     }
 
-    const numberUtil = require('../utility/number');
     const currentLeverage = await leverage.get(msg.author);
     args[1] = numberUtil.numberParse(args[1], currentLeverage);
 

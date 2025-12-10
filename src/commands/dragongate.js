@@ -1,4 +1,10 @@
 const { EmbedBuilder } = require('discord.js');
+const leverageUtil = require('../utility/leverage');
+const configUtil = require('../utility/config');
+const gameHistoryUtli = require('../utility/game-history');
+const random = require('../utility/random');
+const pokerUtil = require('../utility/pocker');
+const xp = require('../utility/xp');
 
 module.exports = {
   name: 'dragonGate',
@@ -6,11 +12,6 @@ module.exports = {
   aliases: ['dg'],
   user: '',
   async execute(msg, args, client) {
-    // import
-    const leverageUtil = require('../utility/leverage');
-    const configUtil = require('../utility/config');
-    const gameHistoryUtli = require('../utility/game-history');
-
     // const
     const coinEmoji = client.emojis.cache.get('889219097752129667');
     this.user = msg.author;
@@ -23,7 +24,6 @@ module.exports = {
       extraPool = gameHistory.pool;
     }
     // 底池
-    const random = require('../utility/random');
     const pool =
       extraPool == 0
         ? random.getRandomInt(configs.min, configs.max)
@@ -66,7 +66,6 @@ module.exports = {
       return;
     }
 
-    const pokerUtil = require('../utility/pocker');
     let deck = pokerUtil.genDeck();
     if (Object.hasOwn(gameHistory, 'deck')) {
       if (gameHistory.deck.length >= 3) {
@@ -181,7 +180,6 @@ module.exports = {
         const resultEmbed = this.message(resultString);
         m.reply({ embeds: [resultEmbed] });
 
-        const xp = require('../utility/xp');
         xp.add(msg, pool);
 
         // if pool bigger than 0, save to game history

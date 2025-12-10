@@ -1,12 +1,13 @@
 const { EmbedBuilder } = require('discord.js');
+const leverage = require('../utility/leverage');
+const atm = require('../utility/atm');
+const numberUtil = require('../utility/number');
 
 module.exports = {
   name: 'atm',
   description: 'this is a atm command!',
   aliases: ['atm', 'bank', 'b'],
   async execute(msg, args, client) {
-    const leverage = require('../utility/leverage');
-    const atm = require('../utility/atm');
     const emoji = client.emojis.cache.get('889219097752129667');
     // ---
     let user = msg.author;
@@ -48,7 +49,6 @@ module.exports = {
 
     firstArg = firstArg.substring(0, 1);
 
-    const numberUtil = require('../utility/number');
     let currentAmount = 0;
     if (firstArg == 'w') {
       currentAmount = await atm.get(user);

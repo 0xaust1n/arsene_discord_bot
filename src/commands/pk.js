@@ -1,11 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
+const leverage = require('../utility/leverage');
+const numberUtil = require('../utility/number');
+const random = require('../utility/random');
+const xp = require('../utility/xp');
 
 module.exports = {
   name: 'pk',
   description: 'this is a reward command!',
   aliases: ['pk'],
   async execute(msg, args, client) {
-    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
 
     if (!args.length) {
@@ -14,7 +17,6 @@ module.exports = {
     const currentLeverage = await leverage.get(msg.author);
     const acceptAmountArgs = ['a', 'all', 'h', 'half'];
     // parse number
-    const numberUtil = require('../utility/number');
     args[0] = numberUtil.numberParse(args[0], currentLeverage);
     const input = isNaN(args[0]) ? args[0].toLocaleLowerCase() : args[0];
 
@@ -60,7 +62,6 @@ module.exports = {
     // remove input leverage from user
     await leverage.add(msg.author, inputLeverage * -1);
 
-    const random = require('../utility/random');
     const clientNumber = random.getRandomInt(1, 1000);
     let smallRate = (1 / ((1000 - clientNumber) / 1000)).toFixed(2);
     let bigRate = (1 / (clientNumber / 1000)).toFixed(2);
@@ -163,7 +164,6 @@ module.exports = {
           .setTimestamp();
 
         m.reply({ embeds: [resultEmbed] });
-        const xp = require('../utility/xp');
         xp.add(msg, inputLeverage);
         collector.stop();
       }

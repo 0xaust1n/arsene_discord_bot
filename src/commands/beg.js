@@ -1,10 +1,12 @@
+const leverage = require('../utility/leverage');
+const numberUtil = require('../utility/number');
+
 module.exports = {
   name: 'beg',
   description: 'this is a beg command!',
   aliases: ['bg'],
   async execute(msg, args, client) {
     const emoji = client.emojis.cache.get('889219097752129667');
-    const leverage = require('../utility/leverage');
 
     if (msg.mentions.users.first() == undefined) {
       return msg.reply(
@@ -17,7 +19,6 @@ module.exports = {
       return msg.reply(`自己跟自己乞討是什麼概念? 請開始你的表演`);
     }
 
-    const numberUtil = require('../utility/number');
     const papaChips = await leverage.get(papa);
     args[1] = numberUtil.numberParse(args[1], papaChips);
 

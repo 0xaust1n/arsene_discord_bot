@@ -1,11 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
+const cd = require('../utility/cd');
 
 module.exports = {
   name: 'cooldown',
   description: 'this is a cooldown command!',
   aliases: ['cd'],
   async execute(msg, args, client) {
-    const cd = require('../utility/cd');
     const cdKeyAry = ['jackpot', 'hourly', 'daily', 'weekly'];
     const user = msg.author;
     const cdResultAry = [];

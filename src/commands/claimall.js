@@ -1,3 +1,6 @@
+const leverage = require('../utility/leverage');
+const cd = require('../utility/cd');
+
 module.exports = {
   name: 'claimall',
   description: 'this is a claimall command!',
@@ -8,12 +11,10 @@ module.exports = {
       { name: 'daily', prize: 2400, type: 'd', cd: '1' },
       { name: 'weekly', prize: 5000, type: 'd', cd: '7' },
     ];
-    const leverage = require('../utility/leverage');
     const user = msg.author;
     // init user amount
     await leverage.get(user);
 
-    const cd = require('../utility/cd');
     let sum = 0;
     for (let i = 0; i < rewardArray.length; i++) {
       const obj = rewardArray[i];

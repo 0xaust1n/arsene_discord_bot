@@ -1,10 +1,12 @@
+const cd = require('../utility/cd');
+const leverage = require('../utility/leverage');
+const random = require('../utility/random');
+
 module.exports = {
   name: 'jackpot',
   description: 'this is a jackpot command!',
   aliases: ['jp', 'sp'],
   async execute(msg, args, client) {
-    const cd = require('../utility/cd');
-    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
     // init user amount
@@ -15,7 +17,6 @@ module.exports = {
         const min = 2000;
         const max = 10000;
 
-        const random = require('../utility/random');
         const prize = random.getRandomInt(min, max);
         // prettier-ignore
         const bonusArray = [

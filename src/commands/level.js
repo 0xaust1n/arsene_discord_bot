@@ -1,13 +1,13 @@
 const { EmbedBuilder } = require('discord.js');
+const level = require('../utility/level');
+const xp = require('../utility/xp');
+const leverage = require('../utility/leverage');
 
 module.exports = {
   name: 'level',
   description: 'this is a level command!',
   aliases: ['lv', 'rank', 'rk'],
   async execute(msg, args, client) {
-    const level = require('../utility/level');
-    const xp = require('../utility/xp');
-    const leverage = require('../utility/leverage');
     let user;
     if (msg.mentions.users.first() != undefined) {
       user = msg.mentions.users.first();

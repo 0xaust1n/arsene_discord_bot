@@ -1,11 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
+const leverage = require('../utility/leverage');
+const numberUtil = require('../utility/number');
+const random = require('../utility/random');
+const xp = require('../utility/xp');
 
 module.exports = {
   name: 'coinflip',
   description: 'this is a coinflip command!',
   aliases: ['cf'],
   async execute(msg, args, client) {
-    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
     if (args.length < 1) {
@@ -35,7 +38,6 @@ module.exports = {
       return;
     }
 
-    const numberUtil = require('../utility/number');
     args[0] = numberUtil.numberParse(args[0], currentLeverage);
 
     if (isNaN(args[0])) {
@@ -79,7 +81,6 @@ module.exports = {
     }
 
     //random flip result
-    const random = require('../utility/random');
     const flip = random.getRandomInt(0, 1) === 1 ? 'h' : 't';
     const result = input == flip ? true : false;
     const gaining = result == true ? inputLeverage : -inputLeverage;
@@ -97,7 +98,6 @@ module.exports = {
     };
     //gain exp
 
-    const xp = require('../utility/xp');
     xp.add(msg, inputLeverage);
 
     // prettier-ignore

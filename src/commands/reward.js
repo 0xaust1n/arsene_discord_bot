@@ -1,3 +1,6 @@
+const cd = require('../utility/cd');
+const leverage = require('../utility/leverage');
+
 module.exports = {
   name: 'reward',
   description: 'this is a reward command!',
@@ -9,8 +12,6 @@ module.exports = {
     const argsMap = initMap(new Map());
     const arg = args.shift().toLocaleLowerCase();
     if (argsMap.has(arg)) {
-      const cd = require('../utility/cd');
-      const leverage = require('../utility/leverage');
       const emoji = client.emojis.cache.get('889219097752129667');
       const obj = argsMap.get(arg);
       const user = msg.author;

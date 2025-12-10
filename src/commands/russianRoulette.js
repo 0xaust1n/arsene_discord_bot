@@ -1,5 +1,7 @@
 const random = require('../utility/random');
 const { EmbedBuilder } = require('discord.js');
+const leverage = require('../utility/leverage');
+const numberUtil = require('../utility/number');
 
 module.exports = {
   name: 'russianRoulette',
@@ -16,7 +18,6 @@ module.exports = {
   },
 
   async execute(msg, args, client) {
-    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
 
@@ -32,8 +33,9 @@ module.exports = {
 
     const userLeverage = await leverage.get(user);
 
-    const numberUtil = require('../utility/number');
     const inputAmount = parseInt(numberUtil.numberParse(args[0], userLeverage));
+
+
 
     if (isNaN(inputAmount)) {
       const errorEmbed = this.createEmbed(
@@ -44,7 +46,7 @@ module.exports = {
       return msg.reply({ embeds: [errorEmbed] });
     }
 
-    if (userLeverage < 0) {
+    if (userLeverage <= 0) {
       const brokeEmbed = this.createEmbed(
         '💸 破產了',
         `籌碼為 0\n子彈你買不起啦幹`,
@@ -135,9 +137,7 @@ module.exports = {
           await leverage.add(user, currentWin * 10);
           let message =
             `你贏了\`10\`倍的 ${currentWin.toLocaleString()} ${emoji}\n` +
-            `你的籌碼數量為: ${(
-              await leverage.get(user)
-            ).toLocaleString()} ${emoji}`;
+            `你的籌碼數量為: ${(await leverage.get(user)).toLocaleString()} ${emoji}`;
 
           winEmbed = this.createEmbed(
             '🎉 恭喜獲勝! 你是勇者',
@@ -148,9 +148,7 @@ module.exports = {
           await leverage.add(user, currentWin);
           let message =
             `你贏了 ${currentWin.toLocaleString()} ${emoji}\n` +
-            `你的籌碼數量為: ${(
-              await leverage.get(user)
-            ).toLocaleString()} ${emoji}`;
+            `你的籌碼數量為: ${(await leverage.get(user)).toLocaleString()} ${emoji}`;
 
           winEmbed = this.createEmbed('🎉 恭喜獲勝', message, '#0099ff');
         }
@@ -179,3 +177,4 @@ module.exports = {
     });
   },
 };
+

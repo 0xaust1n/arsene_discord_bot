@@ -1,11 +1,11 @@
 const { EmbedBuilder } = require('discord.js');
+const leverage = require('../utility/leverage');
 
 module.exports = {
   name: 'chips',
   description: 'this is a chips command!',
   aliases: ['cp'],
   async execute(msg, args, client) {
-    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     let user;
     if (msg.mentions.users.first() != undefined) {

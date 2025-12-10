@@ -1,11 +1,14 @@
 const { EmbedBuilder } = require('discord.js');
+const leverage = require('../utility/leverage');
+const numberUtil = require('../utility/number');
+const random = require('../utility/random');
+const xp = require('../utility/xp');
 
 module.exports = {
   name: 'dice',
   description: 'this is a dice command!',
   aliases: ['d'],
   async execute(msg, args, client) {
-    const leverage = require('../utility/leverage');
     const emoji = client.emojis.cache.get('889219097752129667');
     const user = msg.author;
     if (args.length < 1) {
@@ -35,7 +38,6 @@ module.exports = {
     const currentLeverage = await leverage.get(user);
     const acceptAmountArgs = ['a', 'all', 'h', 'half'];
     // parse number
-    const numberUtil = require('../utility/number');
     args[0] = numberUtil.numberParse(args[0], currentLeverage);
 
     if (!args.length) {
@@ -90,7 +92,6 @@ module.exports = {
     }
 
     //random flip result
-    const random = require('../utility/random');
     const dice = random.getRandomInt(1, 6);
     const isEven = dice % 2 == 0 ? true : false;
     let result = false;
@@ -132,7 +133,6 @@ module.exports = {
     };
     //gain exp
 
-    const xp = require('../utility/xp');
     xp.add(msg, inputLeverage);
 
     // prettier-ignore
