@@ -51,7 +51,7 @@ module.exports = {
 
       await interaction.editReply(replyContent);
     } catch (error) {
-      console.error(error);
+      console.error(error.message);
       await interaction.editReply('There was an error while executing this command!');
     }
   },
