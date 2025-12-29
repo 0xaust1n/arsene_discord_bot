@@ -32,3 +32,15 @@ handlerAry.forEach((handler) => {
 
 const token = process.env.TOKEN;
 client.login(token);
+
+// Simple HTTP server for Fly.io health checks
+const http = require('http');
+const port = process.env.PORT || 8080;
+const server = http.createServer((req, res) => {
+  res.writeHead(200, { 'Content-Type': 'text/plain' });
+  res.end('Health Check OK');
+});
+
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Health check server listening on port ${port}`);
+});
